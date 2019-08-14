@@ -1,8 +1,15 @@
 #include<iostream>
+#include<stdio.h>
 using namespace std;
 
+char caracter = 0;
+int entero = 0;
+float flotante = 0;
+long largo = 0;
+double doble = 0;
+
 int main(){
-	cout << "Hola a todos" << endl;
-	cin.get(); //Finaliza hasta presionar una tecla
-	return 0;
+
+	printf("%p\n", caracter);
+	
 }
