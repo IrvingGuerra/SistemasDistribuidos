@@ -119,7 +119,13 @@ int main(void){
 
 	printf("\t%d <--- Contenido Decimal\n\n", variable);
 	printf("\t%x <--- Contenido Hexadecimal\n\n", variable);
-
+	
+	for(int i = 0; i < 10; i++){
+		printf("\n %d, %x || %d, %x\n", i, i, -i, -i);
+	}
+	
+	printf("\nNo coincide en el caso de los numeros negativos ya que los números negativos usando un complemento a dos\n")
+	printf("\n¿Cuál es el máximo valor negativo y positivo que puede almacenar un entero en su computadora? "BOLDGREEN" El máximo número que la una variable entera positiva y negativa puede almacenar es 2147483647 y -2147483647 "RESET"\n\n")
 	printf("\n\n\n\n\n");
 	return 0;
 }
