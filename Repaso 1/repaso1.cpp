@@ -124,9 +124,20 @@ int main(void){
 		printf("\n %d, %x || %d, %x\n", i, i, -i, -i);
 	}
 	
-	printf("\nNo coincide en el caso de los numeros negativos ya que los números negativos usando un complemento a dos\n")
-	printf("\n¿Cuál es el máximo valor negativo y positivo que puede almacenar un entero en su computadora? "BOLDGREEN" El máximo número que la una variable entera positiva y negativa puede almacenar es 2147483647 y -2147483647 "RESET"\n\n")
+	printf("\nNo coincide en el caso de los numeros negativos ya que los números negativos usando un complemento a dos\n");
+	printf("\n¿Cuál es el máximo valor negativo y positivo que puede almacenar un entero en su computadora? "BOLDGREEN" El máximo número que la una variable entera positiva y negativa puede almacenar es 2147483647 (31 bits en 1) y -2147483648 (complemento a 2 de 31 bits en 0) "RESET"\n\n");
 	printf("\n\n\n\n\n");
+
+	// int max = 0xFFFF;
+	// while (max < max + 1) {
+	// 	max++;
+	// }
+	// printf("Max: %d\n", max);
+	// int min = 0xFFFF * -1;
+	// while (min > min - 1) {
+	// 	min--;
+	// }
+	// printf("Min: %d", min);
 	return 0;
 }
 
