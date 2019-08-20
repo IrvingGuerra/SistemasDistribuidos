@@ -12,7 +12,7 @@ int main( ){
 	cout << BOLDRED"\n=================== Ejercicio 1 ==================="RESET"\n";
 	cout << "Ingrese el radio del circulo:  ";
 	cin >> radio;
-
+	//PI = 3.2;
 	float res = PI*radio*radio;
 
 	cout << "El area del circulo es: " << res <<endl<<endl;
