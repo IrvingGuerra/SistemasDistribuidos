@@ -1,0 +1,31 @@
+Es consecuencia de que los mensajes sean la única forma de comunicación en los sistemas distribuidos
+A. Auscencia de reloj global
+B. Concurrencia
+C. Fallos independientes
+D. Desfase
+
+No es una cualidad de un sistema distribuido abierto
+A. Deben implementase en hardware homogéneo
+B. Sus interfaces están públicas
+C. Tienen un mecanismo de comunicación uniforme
+D. Se pueden construir con software heterogéneo
+
+Tener estructuras jerárquicas en el sistema en vez de lineales ayuda a tener mejor...
+A. Control de las pérdidas de prestaciones
+B. Control del coste de los recursos físicos
+C. Evitación de cuellos de botella
+D. Prevención de desbordamiento de recursos de software
+
+Al hacer saber al usuario del fallo del sistema en algunas ocasiones para que tome una decisión, se tiene en consideración...
+A. La tolerancia de fallos
+B. La recuperación ante fallos
+C. La detección de fallos
+D. El enmascaramiento de fallos
+
+Cuando el sistema permite reubicar sus recursos sin afectar las operaciones de los usuarios, decimos que hay...
+A. Transparencia de movilidad
+B. Transparencia de red
+C. Transparencia de replicación
+D. Transparencia de prestaciones
+
+
