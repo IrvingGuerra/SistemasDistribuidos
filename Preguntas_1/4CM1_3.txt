@@ -1,11 +1,11 @@
 Es consecuencia de que los mensajes sean la única forma de comunicación en los sistemas distribuidos
-A. Auscencia de reloj global
+A. Ausencia de reloj global
 B. Concurrencia
 C. Fallos independientes
 D. Desfase
 
 No es una cualidad de un sistema distribuido abierto
-A. Deben implementase en hardware homogéneo
+A. Deben implementarse en hardware homogéneo
 B. Sus interfaces están públicas
 C. Tienen un mecanismo de comunicación uniforme
 D. Se pueden construir con software heterogéneo
