@@ -8,3 +8,8 @@ A. Windows
 B. Mac OS
 C. Linux
 D. UNIX BSD
+¿Qué herramienta proporciona comunicación tanto de datagramas como de streams?
+A. API de Java para la comunicación de procesos
+B. API de Java para facilitar la implementación de soluciones web
+C. Protocolo TCP
+D. Protocolo UDP
