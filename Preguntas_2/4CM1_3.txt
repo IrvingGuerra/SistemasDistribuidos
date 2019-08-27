@@ -1,0 +1,6 @@
+¿Cuál de las siguientes no es una medida contemplada en el modelo de fallo de TCP?
+A. Ajuste de velocidades de los procesos de lectura
+B. Sumas de comprobación y números de secuencia
+C. Retransmisión de paquetes
+D. Notificación de conexión rota a los procesos
+
