@@ -12,8 +12,10 @@ class PoligonoIrregular
 private:
 	vector<Coordenada> vertices;
 public:
-	void anadeVertice();
+	void anadeVerticesPush(int);
+	void anadeVerticesReserve(int);
 	void imprimeVertices();
+	static int cuentaVertices;
 };
 
 #endif

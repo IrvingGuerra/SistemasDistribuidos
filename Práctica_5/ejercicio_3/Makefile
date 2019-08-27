@@ -1,6 +1,6 @@
-ejercicio_2: ejercicio_2.cpp PoligonoIrregular.o
-	g++ ejercicio_2.cpp PoligonoIrregular.o Coordenada.o -o ejercicio_2
+main: main.cpp PoligonoIrregular.o
+	g++ main.cpp PoligonoIrregular.o Coordenada.o -o ejercicio_3
 PoligonoIrregular.o: PoligonoIrregular.cpp Coordenada.o PoligonoIrregular.h
-	g++ Rectangulo.cpp -c
+	g++ PoligonoIrregular.cpp -c
 Coordenada.o: Coordenada.cpp Coordenada.h
 	g++ Coordenada.cpp -c
