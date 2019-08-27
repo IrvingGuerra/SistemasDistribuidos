@@ -3,8 +3,16 @@ A. Ajuste de velocidades de los procesos de lectura
 B. Sumas de comprobación y números de secuencia
 C. Retransmisión de paquetes
 D. Notificación de conexión rota a los procesos
+
 ¿Los Sockets o Conectores en que Sistema Operativo se originan?
 A. Windows 
 B. Mac OS
 C. Linux
 D. UNIX BSD
+
+¿Cuál de las siguientes abstracciones no es de un protocolo de la capa de transporte o middleware?
+A. Transferencia de archivos
+B. Flujo
+C. Paso de mensajes
+D. Petición-respuesta
+
