@@ -4,7 +4,7 @@ B. Sumas de comprobación y números de secuencia
 C. Retransmisión de paquetes
 D. Notificación de conexión rota a los procesos
 
-¿Los Sockets o Conectores en que Sistema Operativo se originan?
+¿Los Sockets o Conectores en qué Sistema Operativo se originan?
 A. Windows 
 B. Mac OS
 C. Linux
@@ -21,3 +21,9 @@ A. API de Java para la comunicación de procesos
 B. API de Java para facilitar la implementación de soluciones web
 C. Protocolo TCP
 D. Protocolo UDP
+
+Son el tipo de aplicaciones que usan comúnmente el protocolo UDP
+A. Aplicaciones en las que resulte aceptable un servicio susceptible a fallas
+B. Aplicaciones con necesidad de fiabilidad
+C. Aplicaciones complejas
+D. Aplicaciones de alta respuesta y confirmación por parte del servidor
