@@ -22,32 +22,7 @@ class PoligonoIrreg{
 	void imprimeVertice();
 };
 
-class Rectangulo {
-	private:
-	Coordenada superiorIzq;
-	Coordenada inferiorDer;
-	public:
-	Rectangulo();
-	Rectangulo(double xSupIzq, double ySupIzq, double xInfDer, double yInfDer);
-	void imprimeEsq();
-	Coordenada obtieneSupIzq();
-	Coordenada obtieneInfDer();
-};
-
 int main( ) {
-	Rectangulo rectangulo1(2,3,5,1);
-	double ancho, alto;
- 
-	cout << "Calculando el área de un rectángulo dadas sus coordenadas en un plano cartesiano:\n";
-	rectangulo1.imprimeEsq();
-
-	alto = rectangulo1.obtieneSupIzq().obtenerY() -
-	rectangulo1.obtieneInfDer().obtenerY();
-	ancho = rectangulo1.obtieneInfDer().obtenerX() -
-	rectangulo1.obtieneSupIzq().obtenerX();
-	cout << "El área del rectángulo es = " << ancho*alto << endl;
-
-
 
 	Coordenada c1(5, 1);
 	Coordenada c2(5, 7);
@@ -88,25 +63,4 @@ void PoligonoIrreg::imprimeVertice(){
 	for(Coordenada c:v){
 		cout << c.obtenerX() << ", " << c.obtenerY() << endl;
 	}
-}
-
-Rectangulo::Rectangulo() : superiorIzq(0,0), inferiorDer(0,0)
-{ }
-
-Rectangulo::Rectangulo(double xSupIzq, double ySupIzq, double xInfDer, double
-yInfDer):superiorIzq(xSupIzq, ySupIzq), inferiorDer(xInfDer, yInfDer)
-{ }
-
-void Rectangulo::imprimeEsq() {
-	cout << "Para la esquina superior izquierda.\n";
-	cout << "x = " << superiorIzq.obtenerX() << " y = " << superiorIzq.obtenerY() << endl;
-	cout << "Para la esquina inferior derecha.\n";
-	cout << "x = " << inferiorDer.obtenerX() << " y = " << inferiorDer.obtenerY() << endl;
-}
-Coordenada Rectangulo::obtieneSupIzq() {
-	return superiorIzq;
-}
-
-Coordenada Rectangulo::obtieneInfDer() {
-	return inferiorDer;
 }
