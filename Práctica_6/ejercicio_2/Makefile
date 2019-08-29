@@ -1,4 +1,4 @@
-PROJECT = ejercicio_1
+PROJECT = ejercicio_2
 CFLAGS = -Wall
 LDFLAGS = -lm
 CC = g++
@@ -14,9 +14,8 @@ $(PROJECT): $(OBJECTS)
 
 .PHONY: clean
 
-uninstall:
-	rm -f $(PROJECT)
-
 clean:
-	rm -f *.o
+	rm -f *.o $(PROJECT)
 
+run:
+	./$(PROJECT)

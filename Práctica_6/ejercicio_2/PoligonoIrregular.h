@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "Coordenada.h"
 
 using namespace std;
@@ -14,8 +15,9 @@ private:
 public:
 	void anadeVerticesPush(int);
 	void anadeVerticesReserve(int);
-	void imprimeVertices();
-	vector<Coordenada> obtieneVertices();
+	void imprimeVertices(void);
+	vector<Coordenada> obtieneVertices(void);
+	void ordenaVertices(void);
 	static int cuentaVertices;
 	static bool compara(Coordenada, Coordenada);
 };

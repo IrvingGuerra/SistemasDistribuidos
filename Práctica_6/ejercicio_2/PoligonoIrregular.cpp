@@ -21,25 +21,31 @@ void PoligonoIrregular::anadeVerticesReserve(int noVertices)
 	cuentaVertices += noVertices;
 }
 
-void PoligonoIrregular::imprimeVertices()
+void PoligonoIrregular::imprimeVertices(void)
 {
 	for (auto v = vertices.begin(); v != vertices.end(); v++)
 	{
 		double x = (*v).obtenerX();
 		double y = (*v).obtenerY();
 		cout << "X(" << v - vertices.begin() << "): " << x << ", Y(" << v - vertices.begin() << "): " << y << endl;
-		cout << "Magnitud: " << (*v).obtenerMagnitud() << endl << endl;
+		cout << "Magnitud: " << (*v).obtenerMagnitud() << endl
+			 << endl;
 	}
 }
 
-vector<Coordenada> PoligonoIrregular::obtieneVertices()
+vector<Coordenada> PoligonoIrregular::obtieneVertices(void)
 {
 	return vertices;
 }
 
-bool PoligonoIrregular::compara (Coordenada c1, Coordenada c2)
+bool PoligonoIrregular::compara(Coordenada c1, Coordenada c2)
 {
 	return c1.obtenerMagnitud() < c2.obtenerMagnitud();
+}
+
+void PoligonoIrregular::ordenaVertices(void)
+{
+	sort(vertices.begin(), vertices.end(), compara);
 }
 
 int PoligonoIrregular::cuentaVertices = 0;
