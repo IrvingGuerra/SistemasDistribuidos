@@ -15,7 +15,9 @@ public:
 	void anadeVerticesPush(int);
 	void anadeVerticesReserve(int);
 	void imprimeVertices();
+	vector<Coordenada> obtieneVertices();
 	static int cuentaVertices;
+	static bool compara(Coordenada, Coordenada);
 };
 
 #endif

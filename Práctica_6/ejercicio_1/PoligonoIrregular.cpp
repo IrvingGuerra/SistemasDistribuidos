@@ -1,28 +1,45 @@
 #include "PoligonoIrregular.h"
-using namespace std;
 
 void PoligonoIrregular::anadeVerticesPush(int noVertices)
 {
 	for (int i = 0; i < noVertices; i++)
 	{
-		vertices.push_back(Coordenada(rand() % 100 / 10.0, rand() % 100 / 10.0));
+		vertices.push_back(Coordenada(rand() % 100000 / 1000.0 * pow(-1.0, (double)rand()),
+									  rand() % 100000 / 1000.0 * pow(-1.0, (double)rand())));
 	}
 	cuentaVertices += noVertices;
 }
+
 void PoligonoIrregular::anadeVerticesReserve(int noVertices)
 {
 	vertices.reserve(noVertices);
 	for (int i = 0; i < noVertices; i++)
 	{
-		vertices[i] = Coordenada(rand() % 100 / 10.0, rand() % 100 / 10.0);
+		vertices.push_back(Coordenada(rand() % 100000 / 1000.0 * pow(-1.0, (double)rand()),
+									  rand() % 100000 / 1000.0 * pow(-1.0, (double)rand())));
 	}
 	cuentaVertices += noVertices;
 }
+
 void PoligonoIrregular::imprimeVertices()
 {
-	for (int i = 0; i < vertices.size(); i++)
+	for (auto v = vertices.begin(); v != vertices.end(); v++)
 	{
-		cout << "X(" << i << "): " << vertices[i].obtenerX() << ", Y(" << i << "): " << vertices[i].obtenerY() << endl;
+		double x = (*v).obtenerX();
+		double y = (*v).obtenerY();
+		cout << "X(" << v - vertices.begin() << "): " << x << ", Y(" << v - vertices.begin() << "): " << y << endl;
+		cout << "Magnitud: " << (*v).obtenerMagnitud() << endl << endl;
 	}
 }
+
+vector<Coordenada> PoligonoIrregular::obtieneVertices()
+{
+	return vertices;
+}
+
+bool PoligonoIrregular::compara (Coordenada c1, Coordenada c2)
+{
+	return c1.obtenerMagnitud() < c2.obtenerMagnitud();
+}
+
 int PoligonoIrregular::cuentaVertices = 0;
