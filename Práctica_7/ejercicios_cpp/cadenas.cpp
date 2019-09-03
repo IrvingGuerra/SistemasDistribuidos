@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <cmath>
 #include <unistd.h>
 
 using namespace std;
@@ -19,10 +20,11 @@ string getPalabra(){
 }
 
 int main(void){
+	int const N = (int)pow(26, 3) * 100;
 	int semilla = time(NULL);
 	srand(semilla);
 	string palabrota;
-	for(int i = 0; i < 175760; i++){
+	for(int i = 0; i < N; i++){
 		palabrota += (getPalabra() + " ");	
 	}
 	//cout << palabrota << endl;
@@ -30,15 +32,13 @@ int main(void){
 	//cout << palabrota[palabrota.find("IPN")] << palabrota[palabrota.find("IPN")+1] << palabrota[palabrota.find("IPN")+2] << endl;
 	//cout << "la semilla fue :" << semilla << endl;
 	int PrimeraPosicion = 0;
-	while(palabrota.find("IPN",PrimeraPosicion) < 175760*4){
-		cout << "El indice donde se encuentra la cadena IPN es: " << palabrota.find("IPN",PrimeraPosicion) << endl;	
-		cout << palabrota[palabrota.find("IPN",PrimeraPosicion)] << palabrota[palabrota.find("IPN",PrimeraPosicion)+1] << palabrota[palabrota.find("IPN",PrimeraPosicion)+2] << endl;
-
+	int ocurrencias = 0;
+	while(palabrota.find("IPN",PrimeraPosicion) < N*4){
+		// cout << "El indice donde se encuentra la cadena IPN es: " << palabrota.find("IPN",PrimeraPosicion) << endl;
+		// cout << palabrota[palabrota.find("IPN",PrimeraPosicion)] << palabrota[palabrota.find("IPN",PrimeraPosicion)+1] << palabrota[palabrota.find("IPN",PrimeraPosicion)+2] << endl;
 		PrimeraPosicion = palabrota.find("IPN",PrimeraPosicion) + 3;
+		ocurrencias++;
 	}
-
-
-
-
-
+	cout << "Ocurrencias: " << ocurrencias << endl;
+	return 0;
 }
