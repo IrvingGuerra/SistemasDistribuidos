@@ -3,7 +3,7 @@
 
 int main(int argc, char const *argv[])
 {
-    int const N = 100;
+    int const N = 3;
     PoligonoIrregular p;
     p.anadeVerticesReserve(N);
     cout << "Añadí vértices" << endl;
