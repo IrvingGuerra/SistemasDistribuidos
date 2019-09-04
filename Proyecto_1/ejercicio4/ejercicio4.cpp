@@ -5,21 +5,34 @@
 using namespace std;
 
 int main(){
-/*	Rectangulo rectangulo1(2,3,5,1);
+	cout << "Ejercicio 4 - Temperaturas" << endl;
 
-	double ancho, alto;
+	//Imrpimimos el valor por defecto
+	Temperatura a;
 
-	cout << "Calculando el área de un rectángulo dadas sus coordenadas en un plano cartesiano:\n";
+	cout << endl << "- Por defecto -" << endl;
 
-	rectangulo1.imprimeEsq();
+	cout << a.getTemp('k') << " grados Kelvin" << endl;
 
-	alto = rectangulo1.obtieneSupIzq().obtenerY() -
-	rectangulo1.obtieneInfDer().obtenerY();
+	//Probamos cada metodo
+	cout << endl << "- setTempKelvin 298.15 -" << endl;
+	a.setTempKelvin(298.15);
+	cout << a.getTemp('k') << " grados Kelvin" << endl;
+	cout << a.getTemp('f') << " grados Fahrenheit" << endl;
+	cout << a.getTemp('c') << " grados Celcius" << endl;
 
-	ancho = rectangulo1.obtieneInfDer().obtenerX() -
-	rectangulo1.obtieneSupIzq().obtenerX();
+	cout << endl << "- setTempFahrenheit 77 -" << endl;
+	a.setTempFahrenheit(77);
+	cout << a.getTemp('k') << " grados Kelvin" << endl;
+	cout << a.getTemp('f') << " grados Fahrenheit" << endl;
+	cout << a.getTemp('c') << " grados Celcius" << endl;
 
-	cout << "El área del rectángulo es = " << ancho*alto << endl;
-*/
+	cout << endl << "- setTempCelcius 25 -" << endl;
+	a.setTempCelsius(25);
+	cout << a.getTemp('k') << " grados Kelvin" << endl;
+	cout << a.getTemp('f') << " grados Fahrenheit" << endl;
+	cout << a.getTemp('c') << " grados Celcius" << endl;
+	
+
 	return 0;
 }

@@ -8,7 +8,7 @@ class Temperatura{
 	private:
 		double kelvin;
 	public:
-		Temperatura(double = 273);
+		Temperatura(double = 298); // por defecto le ponemos 298 K
 		void setTempKelvin(double);
 		void setTempFahrenheit(double);
 		void setTempCelsius(double);
