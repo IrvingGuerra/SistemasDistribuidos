@@ -1,25 +1,32 @@
 #include <iostream>
 #include <unistd.h>
 #include <thread>
+#include <mutex>
 
 using namespace std;
 
 int variable = 0;
 
+mutex m;
+
 void incrementa(int n)
 {
+    m.lock();
     for (register int i = 0; i < n; i++)
     {
         variable++;
     }
+    m.unlock();
 }
 
 void decrementa(int n)
 {
+    m.lock();
     for (register int i = 0; i < n; i++)
     {
         variable--;
     }
+    m.unlock();
 }
 
 int main()
