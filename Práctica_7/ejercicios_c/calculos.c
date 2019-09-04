@@ -1,4 +1,4 @@
-#include <cmath>
+#include <math.h>
 int main(void){
 	float lo=0 ,s=0, c=0, t=0, r2=0;
 	double i;

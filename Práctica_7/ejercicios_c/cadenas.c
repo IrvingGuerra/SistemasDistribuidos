@@ -3,8 +3,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <string.h>
+#include <math.h>
 
-#define N 27000
+#define N 1757600
 
 char * create_string(int);
 int get_occurrences(char *, char *);

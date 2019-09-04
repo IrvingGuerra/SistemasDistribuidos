@@ -1,6 +1,4 @@
 
-package ejercicio2;
-
 import static java.lang.Math.cos;
 import static java.lang.Math.log;
 import static java.lang.Math.sin;
@@ -11,7 +9,7 @@ public class Ejercicio2 {
 
     public static void main(String[] args) {
         
-        double i = 0, Max = 2999999, seno = 0, coseno = 0, tangente = 0, logaritmo = 0, raizCuad = 0;
+        double i = 0, Max = 9999999, seno = 0, coseno = 0, tangente = 0, logaritmo = 0, raizCuad = 0;
         
         while(i < Max){
             seno += sin(i);
