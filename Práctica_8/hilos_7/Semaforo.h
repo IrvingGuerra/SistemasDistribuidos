@@ -4,11 +4,13 @@
 #include <mutex>
 #include <condition_variable>
 
+using namespace std;
+
 class Semaforo
 {
 private:
-    std::mutex mutex_;
-    std::condition_variable condition_;
+    mutex mutex_;
+    condition_variable condition_;
     unsigned long count_;
 
 public:
