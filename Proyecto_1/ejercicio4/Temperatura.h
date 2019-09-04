@@ -1,9 +1,6 @@
 #ifndef TEMPERATURA_H_
 #define TEMPERATURA_H_
 
-#include <math.h>
-#include <string.h>
-
 class Temperatura{
 	private:
 		double kelvin;

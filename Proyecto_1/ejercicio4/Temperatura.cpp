@@ -1,6 +1,5 @@
 #include "Temperatura.h"
 #include <iostream>
-#include <string.h>
 using namespace std;
 
 Temperatura::Temperatura(double grados) : kelvin(grados){} 
