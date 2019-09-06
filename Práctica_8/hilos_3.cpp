@@ -24,7 +24,7 @@ void decrementa(int n)
 
 int main()
 {
-    int n = 1000;
+    int n = 10000;
     thread th1(incrementa, n), th2(decrementa, n);
     printf("Proceso principal espera que los hilos terminen.\n");
     th1.join();
