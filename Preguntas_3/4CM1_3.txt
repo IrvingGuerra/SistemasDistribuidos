@@ -10,4 +10,20 @@ B. Control de Area local
 C. Control de Ad Hoc
 D. Alcance administrativo
 
+¿Cuál opción es una posible mejora para la implementación de Multicast?
+A. Todas son posibles
+B. Fijar el TTL a un valor pequeño
+C. Una arquitectura de reserva de dirección multicast
+D. Multicast confiable
 
+¿Cuál de las siguientes clases no es utilizada directamente al enviar y recibir datagramas?
+A. DatagramSocket
+B. MulticastSocket
+C. DatagramPacket
+D. InetAddress
+
+Es resultado de fijar TTL en 1
+A. Multicast se propaga solo a la red local
+B. Multicast demora menos en llevarse a cabo
+C. Multicast se propaga a internet
+D. Logra reducir a 1 el tamaño del grupo multicast
