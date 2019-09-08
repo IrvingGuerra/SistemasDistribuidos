@@ -1,0 +1,13 @@
+Hace referencia a que los clientes y servidores pueden usar los mensajes multicast para buscar interfaces de otros servicios
+A. Servicios de descubrimiento
+B. Servicios replicados
+C. Datos replicados
+D. Propagación de las notificaciones de eventos
+
+El rango de direcciones multicast 224.0.1.0 a 224.0.1.255 pertenece al bloque de...
+A. Control de Internet
+B. Control de Area local
+C. Control de Ad Hoc
+D. Alcance administrativo
+
+
