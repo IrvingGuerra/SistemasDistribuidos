@@ -1,0 +1,29 @@
+La información almacenada dentro de los programas en ejecucion se representa mediante..
+A. Estructuras de datos
+B. Sockets
+C. Datos amorfos
+D. Codigo ASCII
+
+En Java, la reflexión es la habilidad de...
+A. Preguntar sobre las prioridades de una clase
+B. Crear datos automaticamente
+C. Analizar datos y crear respuestas
+D. Copiar un dato y pasarlo a su equivalente en bits
+
+Es un modo de asegurarse que una referencia a un objeto remoto es unica.
+A. Construir una referencia a objeto remoto concatenando la direccion Internet de su computador y el numero de puerto del proceso
+B. Constriur un objeto remoto concatenando la direccion Internet de su computador y el numero de puerto del proceso
+C. Constriur una clase remota concatenando la direccion Internet de su computador y el numero de puerto del proceso
+D. Construir una referencia a una clase remota concatenando la direccion Internet de su computador y el numero de puerto del proceso	
+
+La primitiva "hazOperación" se utiliza en los clientes para:
+A. Invocar las operaciones remotas
+B. Para hacerse con las peticiones de servicio
+C. Indicar el tiempo de espera de la respuesta
+D. Indicar el tiempo de espera de la petición
+	
+Son los tres protocolos que se utilizan en la implementación de los distintos tipos de RPC.
+A. R, RR y RRA
+B. TCP, UDP, ICMP
+C. FTP, DHCP, HTTP
+D. RR, RA y RRAP
