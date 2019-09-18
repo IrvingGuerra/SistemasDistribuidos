@@ -1,0 +1,39 @@
+
+En el caso normal de la comunicacion cliente servidor la comunicación es:
+A. Síncrona
+B. Asíncrona
+C. Unidireccional
+D. Externa
+
+
+La primitiva "hazOperación" se utiliza en los clientes para:
+A. Invocar las operaciones remotas
+B. Para hacerse con las peticiones de servicio
+C. Indicar el tiempo de espera de la respuesta
+D. Indicar el tiempo de espera de la petición
+
+Son los tres protocolos que se utilizan en la implementación de los distintos tipos de RPC.
+A. R, RR y RRA
+B. TCP, UDP, ICMP
+C. FTP, DHCP, HTTP
+D. RR, RA y RRAP
+
+
+En el caso normal de la comunicacion cliente servidor la comunicación es:
+A. Síncrona
+B. Asíncrona
+C. Unidireccional
+D. Externa
+	
+
+La primitiva "hazOperación" se utiliza en los clientes para:
+A. Invocar las operaciones remotas
+B. Para hacerse con las peticiones de servicio
+C. Indicar el tiempo de espera de la respuesta
+D. Indicar el tiempo de espera de la petición
+	
+Son los tres protocolos que se utilizan en la implementación de los distintos tipos de RPC.
+A. R, RR y RRA
+B. TCP, UDP, ICMP
+C. FTP, DHCP, HTTP
+D. RR, RA y RRAP
