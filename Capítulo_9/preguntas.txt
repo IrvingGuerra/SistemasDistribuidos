@@ -1,0 +1,11 @@
+9-1 almacena en numero de puerto del socket
+9-2 - AF_INER
+    - reserva espacio de memoria, manda n bytes a null a la cadena del primer parametro
+    - 32
+    - se cambiaron las posiciones de los bytes el de la primera posicion cambió lugar con el de la tercera posicion
+      y el de la segunda posición con el de la cuarta.
+9-3 - server_addr  con los valores AF_INET en " sin_family", INADDR_ANY en " sin_addr.s_addr" y htons(puerto) en "sin_port"
+    - al inicio valores basura, y posteriormente la dirección y puertos del cliente al que se manda el mensaje
+9-4 - en los miembros de msg_to_client_addr
+    - para indicar el dominio, que la direccion de internet será puesta automaticamente, y el puerto del socket 
+
