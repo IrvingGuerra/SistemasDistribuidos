@@ -1,0 +1,47 @@
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <strings.h>
+#include <stdio.h>
+#define n 16376
+int puerto = 7200;
+
+int main(void)
+{
+   int num[n],res;
+   int s, clilen;
+   struct sockaddr_in server_addr, msg_to_client_addr;
+
+   s = socket(AF_INET, SOCK_DGRAM, 0);
+   /* se asigna una direccion al socket del servidor*/
+   bzero((char *)&server_addr, sizeof(server_addr));
+   server_addr.sin_family = AF_INET;
+   server_addr.sin_addr.s_addr = INADDR_ANY;
+   server_addr.sin_port = htons(puerto);
+   bind(s, (struct sockaddr *)&server_addr, sizeof(server_addr));
+   clilen = sizeof(msg_to_client_addr);
+   while (1)
+   {
+      recvfrom(s, (int *)num, n * sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, &clilen);
+
+      uint32_t s_addr_client = msg_to_client_addr.sin_addr.s_addr;
+      s_addr_client = ntohl(s_addr_client);
+      in_port_t s_port_client = msg_to_client_addr.sin_port;
+      s_port_client = ntohs(s_port_client);
+
+      printf("cliente: %u.%u.%u.%u:%d\n",
+             s_addr_client >> 24 & 0xff,
+             s_addr_client >> 16 & 0xff,
+             s_addr_client >> 8 & 0xff,
+             s_addr_client & 0xff,
+             s_port_client);
+
+      res = num[n-2] + num[n-1];
+	printf("\n%d\n",res);
+
+      /* envía la petición al cliente. La estructura msg_to_client_addr contiene la dirección socket del cliente */
+      sendto(s, (int *)&res, sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, clilen);
+   }
+}
