@@ -23,12 +23,12 @@ DatagramSocket::~DatagramSocket()
 int DatagramSocket::receive(DatagramPacket &p)
 {
     // Recibe y guarda datos.
-    char *datos;
+    void *datos = new char[p.getLength()];
     int recibidos = recvfrom(socketId, datos, p.getLength(), 0, NULL, NULL);
     p.initData(datos);
 
     // Adapta dirección a string y guarda.
-    char *ip;
+    char ip[16];
     uint32_t s_addr_client = localAddress.sin_addr.s_addr;
     s_addr_client = ntohl(s_addr_client);
     sprintf(ip, "%d.%d.%d.%d",
@@ -37,6 +37,7 @@ int DatagramSocket::receive(DatagramPacket &p)
             s_addr_client >> 8 & 0xff,
             s_addr_client & 0xff);
     p.initIpAddress(ip);
+    
     // Adapta puerto y guarda.
     in_port_t s_port_client = localAddress.sin_port;
     s_port_client = ntohs(s_port_client);

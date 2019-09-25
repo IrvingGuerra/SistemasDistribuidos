@@ -1,6 +1,6 @@
 #include "DatagramPacket.h"
 
-DatagramPacket::DatagramPacket(char *data, unsigned int length, const char *ipAddress, int port)
+DatagramPacket::DatagramPacket(void *data, unsigned int length, const char *ipAddress, int port)
 {
 	if (length > MAX_LENGTH)
 	{
@@ -21,13 +21,14 @@ DatagramPacket::DatagramPacket(unsigned int length)
 		perror("Longitud de paquete excede la longitud máxima.");
 		exit(EXIT_FAILURE);
 	}
-	
+	this->data = (void *)new char[length];
 	this->length = length;
 }
 
 DatagramPacket::~DatagramPacket()
 {
-	free(this);
+	if (data)
+		delete [] (char *)data;
 }
 
 char *DatagramPacket::getIpAddress()
@@ -42,7 +43,7 @@ int DatagramPacket::getPort()
 {
 	return port;
 }
-char *DatagramPacket::getData()
+void *DatagramPacket::getData()
 {
 	return data;
 }
@@ -54,7 +55,7 @@ void DatagramPacket::initIpAddress(const char *ipAddress)
 {
 	strcpy(this->ipAddress, ipAddress);
 }
-void DatagramPacket::initData(char *data)
+void DatagramPacket::initData(void *data)
 {
 	this->data = data;
 }

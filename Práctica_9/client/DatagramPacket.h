@@ -10,21 +10,21 @@
 class DatagramPacket
 {
 private:
-	char *data;		   //Almacena los datos
+	void *data;		   //Almacena los datos
 	char ipAddress[16];		   //Almacena la IP
 	unsigned int length; //Almacena la longitude de la cadena de datos
 	int port;			   //Almacena el puerto
 public:
-	DatagramPacket(char * data, unsigned int length, const char * ip, int port);
+	DatagramPacket(void * data, unsigned int length, const char * ip, int port);
 	DatagramPacket(unsigned int length);
 	~DatagramPacket();
 	char *getIpAddress();
 	unsigned int getLength();
 	int getPort();
-	char *getData();
+	void *getData();
 	void initPort(int port);
 	void initIpAddress(const char * ip);
-	void initData(char * data);
+	void initData(void * data);
 };
 
 #endif
