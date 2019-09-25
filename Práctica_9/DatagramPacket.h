@@ -3,6 +3,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+
+#define MAX_LENGTH 16376
 
 class DatagramPacket
 {
