@@ -27,8 +27,8 @@ DatagramPacket::DatagramPacket(unsigned int length)
 
 DatagramPacket::~DatagramPacket()
 {
-	if (data)
-		delete [] (char *)data;
+	// if (data)
+	// 	delete [] (char *)data;
 }
 
 char *DatagramPacket::getIpAddress()

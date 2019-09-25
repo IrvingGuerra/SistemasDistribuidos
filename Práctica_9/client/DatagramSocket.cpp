@@ -16,7 +16,7 @@ DatagramSocket::DatagramSocket(int port)
 
 DatagramSocket::~DatagramSocket()
 {
-    close(socketId);
+    // close(socketId);
 }
 
 //Recibe un paquete tipo datagrama proveniente de este socket
