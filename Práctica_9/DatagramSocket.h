@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <stdio.h>
 
+#include "DatagramPacket.h"
+
 class DatagramSocket
 {
 private:
@@ -13,7 +15,7 @@ public:
     DatagramSocket(int port);
     ~DatagramSocket();
     //Recibe un paquete tipo datagrama proveniente de este socket
-    int receive(PaqueteDatagrama &p);
+    int receive(DatagramPacket &p);
     //Envía un paquete tipo datagrama desde este socket
-    int send(PaqueteDatagrama &p);
+    int send(DatagramPacket &p);
 };

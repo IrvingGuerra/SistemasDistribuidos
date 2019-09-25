@@ -4,12 +4,6 @@ DatagramSocket::DatagramSocket(int port)
 {
     socketId = socket(AF_INET, SOCK_DGRAM, 0);
 
-    /* rellena la dirección del servidor */
-    bzero((char *)&foreignAddress, sizeof(foreignAddress));
-    foreignAddress.sin_family = AF_INET;
-    foreignAddress.sin_addr.s_addr = inet_addr("10.100.74.168");
-    foreignAddress.sin_port = htons(7200);
-
     /* rellena la direcciòn del cliente*/
     bzero((char *)&localAddress, sizeof(localAddress));
     localAddress.sin_family = AF_INET;
@@ -26,12 +20,12 @@ DatagramSocket::~DatagramSocket()
 }
 
 //Recibe un paquete tipo datagrama proveniente de este socket
-int DatagramSocket::receive(PaqueteDatagrama &p)
+int DatagramSocket::receive(DatagramPacket &p)
 {
     // Recibe y guarda datos.
     char *datos;
-    int recibidos = recvfrom(socketId, datos, p.obtieneLongitud(), 0, NULL, NULL);
-    p.inicializaDatos(datos);
+    int recibidos = recvfrom(socketId, datos, p.getLength(), 0, NULL, NULL);
+    p.initData(datos);
 
     // Adapta dirección a string y guarda.
     char *ip;
@@ -42,17 +36,22 @@ int DatagramSocket::receive(PaqueteDatagrama &p)
             s_addr_client >> 16 & 0xff,
             s_addr_client >> 8 & 0xff,
             s_addr_client & 0xff);
-    p.inicializaIp(ip);
+    p.initIpAddress(ip);
     // Adapta puerto y guarda.
     in_port_t s_port_client = localAddress.sin_port;
     s_port_client = ntohs(s_port_client);
-    p.inicializaPuerto(s_port_client);
+    p.initPort(s_port_client);
 
     return recibidos;
 }
 
 //Envía un paquete tipo datagrama desde este socket
-int DatagramSocket::send(PaqueteDatagrama &p)
+int DatagramSocket::send(DatagramPacket &p)
 {
-    return sendto(socketId, p.obtieneDatos(), p.obtieneLongitud(), 0, (struct sockaddr *)&foreignAddress, sizeof(foreignAddress));
+    /* rellena la dirección del servidor */
+    bzero((char *)&foreignAddress, sizeof(foreignAddress));
+    foreignAddress.sin_family = AF_INET;
+    foreignAddress.sin_addr.s_addr = inet_addr(p.getIpAddress());
+    foreignAddress.sin_port = htons(p.getPort());
+    return sendto(socketId, p.getData(), p.getLength(), 0, (struct sockaddr *)&foreignAddress, sizeof(foreignAddress));
 }
