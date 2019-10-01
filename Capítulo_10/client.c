@@ -5,7 +5,7 @@
 #include <netdb.h>
 #include <strings.h>
 #include <arpa/inet.h>
-
+ 
 #define N 16376
 
 int puerto = 7200;
