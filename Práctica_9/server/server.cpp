@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
 
         // Envío.
         int results[2] = {data[0] + data[1], data[0] - data[1]};
-        DatagramPacket sendPack((void *)results, 2 * sizeof(int), "10.100.67.13", 5555);
+        DatagramPacket sendPack((void *)results, 2 * sizeof(int), "10.100.74.224", 5555);
         socket.send(sendPack);
         std::cout << "Se envió suma y resta" << std::endl;
     }

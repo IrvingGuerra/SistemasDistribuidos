@@ -8,7 +8,11 @@ DatagramPacket::DatagramPacket(void *data, unsigned int length, const char *ipAd
 		exit(EXIT_FAILURE);
 	}
 
-	this->data = data;
+	this->data = (char*)malloc((length/4)*sizeof(char));
+	memcpy(this->data,data,length);
+
+	//this->data = data;
+
 	this->length = length;
 	strcpy(this->ipAddress, ipAddress);
 	this->port = port;
@@ -25,10 +29,8 @@ DatagramPacket::DatagramPacket(unsigned int length)
 	this->length = length;
 }
 
-DatagramPacket::~DatagramPacket()
-{
-	// if (data)
-	// 	delete [] (char *)data;
+DatagramPacket::~DatagramPacket(){
+	free(this->data);
 }
 
 char *DatagramPacket::getIpAddress()

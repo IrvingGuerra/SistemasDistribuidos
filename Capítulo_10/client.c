@@ -5,8 +5,13 @@
 #include <netdb.h>
 #include <strings.h>
 #include <arpa/inet.h>
+<<<<<<< HEAD
 
 #define N 2//16376
+=======
+ 
+#define N 16376
+>>>>>>> 1fbdb3c61d8d6e4e603bc3b447dfa45f7282af7d
 
 int puerto = 6666;
 
