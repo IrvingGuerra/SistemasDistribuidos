@@ -19,10 +19,5 @@ int main(int argc, char const *argv[])
     std::cout << "Suma: " << results[0] << std::endl;
     std::cout << "Resta: " << results[1] << std::endl;
 
-    // Cierre.
-    //sendPack.~DatagramPacket();
-    //recvPack.~DatagramPacket();
-    //socket.~DatagramSocket();
-
     return 0;
 }

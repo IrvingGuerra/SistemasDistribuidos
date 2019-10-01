@@ -16,16 +16,15 @@ DatagramSocket::DatagramSocket(int port)
 
 DatagramSocket::~DatagramSocket()
 {
-    //  close(socketId);
+    close(socketId);
 }
 
 //Recibe un paquete tipo datagrama proveniente de este socket
 int DatagramSocket::receive(DatagramPacket &p)
 {
     // Recibe y guarda datos.
-    void *datos = new char[p.getLength()];
-    int recibidos = recvfrom(socketId, datos, p.getLength(), 0, NULL, NULL);
-    p.initData(datos);
+    int len = sizeof(foreignAddress);
+    int recibidos = recvfrom(socketId, p.getData(), p.getLength(), 0, (struct sockaddr *)&foreignAddress, (socklen_t *)&len);
 
     // Adapta dirección a string y guarda.
     char ip[16];
