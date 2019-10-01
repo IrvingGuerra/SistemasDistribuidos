@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
 
     // Envío.
     int data[2] = {10, 5};
-    DatagramPacket sendPack((void *)data, 2 * sizeof(int), "10.100.67.13", 6666);
+    DatagramPacket sendPack((void *)data, 2 * sizeof(int), "10.100.67.160", 6666);
     DatagramPacket recvPack(2 * sizeof(int));
     socket.send(sendPack);
 

@@ -6,20 +6,20 @@
 #include <strings.h>
 #include <arpa/inet.h>
 
-#define N 16376
+#define N 2//16376
 
-int puerto = 7200;
+int puerto = 6666;
 
 int main(int argc, char **argv)
 {
    struct sockaddr_in msg_to_server_addr, client_addr;
-   int s, res;
+   int s, res[N];
 
    s = socket(AF_INET, SOCK_DGRAM, 0);
    /* rellena la dirección del servidor */
    bzero((char *)&msg_to_server_addr, sizeof(msg_to_server_addr));
    msg_to_server_addr.sin_family = AF_INET;
-   msg_to_server_addr.sin_addr.s_addr = inet_addr("10.100.74.168");
+   msg_to_server_addr.sin_addr.s_addr = inet_addr("10.100.67.160");
    msg_to_server_addr.sin_port = htons(puerto);
 
    /* rellena la direcciòn del cliente*/
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
    client_addr.sin_addr.s_addr = INADDR_ANY;
 
    /*cuando se utiliza por numero de puerto el 0, el sistema se encarga de asignarle uno */
-   client_addr.sin_port = htons(6666);
+   client_addr.sin_port = htons(5555);
    bind(s, (struct sockaddr *)&client_addr, sizeof(client_addr));
    //num[0] = 2;
    //num[1] = 5; /*rellena el mensaje */
@@ -51,7 +51,8 @@ int main(int argc, char **argv)
           s_port_server);
 
    /* se bloquea esperando respuesta */
-   recvfrom(s, (char *)&res, sizeof(int), 0, NULL, NULL);
-   printf("suma = %d\n", res);
+   recvfrom(s, (char *)res, N * sizeof(int), 0, NULL, NULL);
+   printf("suma = %d\n", res[0]);
+   printf("resta = %d\n", res[1]);
    close(s);
 }
