@@ -1,3 +1,5 @@
+#include "PaqueteDatagrama.h"
+#include "SocketDatagrama.h"
 #include "respuesta.h"
 #include "mensaje.h"
 
@@ -7,6 +9,8 @@ respuesta::Respuesta(int pl){ //recibe puerto
 
 
 mensaje respuesta::getRequest(){
+
+	
 
 }
 
