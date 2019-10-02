@@ -1,6 +1,8 @@
 #ifndef SOLICITUD_H
 #define SOLICITUD_H
 
+#include "SocketDatagrama.h"
+
 class Respuesta{
 	public:
 		Respuesta(int pl);
