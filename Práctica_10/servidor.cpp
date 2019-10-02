@@ -1,6 +1,8 @@
 #include "PaqueteDatagrama.h"
 #include "SocketDatagrama.h"
 
+#include "respuesta.h"
+
 #include <iostream>
 
 int main(int argc, char const *argv[])

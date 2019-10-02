@@ -1,4 +1,5 @@
 #include "respuesta.h"
+#include "mensaje.h"
 
 respuesta::Respuesta(int pl){ //recibe puerto
 	SocketDatagrama sd(pl);
