@@ -5,27 +5,21 @@
 #include <netdb.h>
 #include <strings.h>
 #include <arpa/inet.h>
-<<<<<<< HEAD
 
-#define N 2//16376
-=======
- 
-#define N 16376
->>>>>>> 1fbdb3c61d8d6e4e603bc3b447dfa45f7282af7d
 
-int puerto = 6666;
+int puerto = 6000;
 
 int main(int argc, char **argv)
 {
    struct sockaddr_in msg_to_server_addr, client_addr;
-   int s, res[N];
+   int s;
 
    s = socket(AF_INET, SOCK_DGRAM, 0);
    /* rellena la dirección del servidor */
    bzero((char *)&msg_to_server_addr, sizeof(msg_to_server_addr));
    msg_to_server_addr.sin_family = AF_INET;
-   msg_to_server_addr.sin_addr.s_addr = inet_addr("10.100.67.160");
-   msg_to_server_addr.sin_port = htons(puerto);
+   msg_to_server_addr.sin_addr.s_addr = inet_addr("10.211.222.169");
+   msg_to_server_addr.sin_port = htons(5000);
 
    /* rellena la direcciòn del cliente*/
    bzero((char *)&client_addr, sizeof(client_addr));
@@ -33,14 +27,14 @@ int main(int argc, char **argv)
    client_addr.sin_addr.s_addr = INADDR_ANY;
 
    /*cuando se utiliza por numero de puerto el 0, el sistema se encarga de asignarle uno */
-   client_addr.sin_port = htons(5555);
+   client_addr.sin_port = htons(puerto);
    bind(s, (struct sockaddr *)&client_addr, sizeof(client_addr));
    //num[0] = 2;
    //num[1] = 5; /*rellena el mensaje */
-   int num[N];
-   num[N - 2] = 10;
-   num[N - 1] = 20;
-   sendto(s, (char *)num, N * sizeof(int), 0, (struct sockaddr *)&msg_to_server_addr, sizeof(msg_to_server_addr));
+   int num[2];
+   num[0] = 10;
+   num[1] = 20;
+   sendto(s, (char *)num, 2 * sizeof(int), 0, (struct sockaddr *)&msg_to_server_addr, sizeof(msg_to_server_addr));
 
    //char * s_addr_str = mem;
    uint32_t s_addr_server = msg_to_server_addr.sin_addr.s_addr;
@@ -56,7 +50,9 @@ int main(int argc, char **argv)
           s_port_server);
 
    /* se bloquea esperando respuesta */
-   recvfrom(s, (char *)res, N * sizeof(int), 0, NULL, NULL);
+   int res[2];
+   int outLen = sizeof(msg_to_server_addr);
+   recvfrom(s, (char *)res, 2 * sizeof(int), 0, (struct sockaddr *)&msg_to_server_addr, &outLen);
    printf("suma = %d\n", res[0]);
    printf("resta = %d\n", res[1]);
    close(s);

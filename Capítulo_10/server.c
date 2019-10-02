@@ -6,12 +6,13 @@
 #include <strings.h>
 #include <stdio.h>
 
-int puerto = 7200;
+#define MAX_LONGITUD_DATOS 16376
 
 int main(void)
 {
+   int puerto = 5000;
    int num[2];
-   int s, res, clilen;
+   int s, clilen;
    struct sockaddr_in server_addr, msg_to_client_addr;
 
    s = socket(AF_INET, SOCK_DGRAM, 0);
@@ -24,23 +25,29 @@ int main(void)
    clilen = sizeof(msg_to_client_addr);
    while (1)
    {
-      recvfrom(s, (char *)num, 2 * sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, &clilen);
+      recvfrom(s, (int *)num, 2 * sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, &clilen);
 
-      uint32_t s_addr_client = msg_to_client_addr.sin_addr.s_addr;
-      s_addr_client = ntohl(s_addr_client);
-      in_port_t s_port_client = msg_to_client_addr.sin_port;
-      s_port_client = ntohs(s_port_client);
+      // Guarda direccción fuente.
+      uint32_t direccionFuente = ntohl(msg_to_client_addr.sin_addr.s_addr);
+      char direccionFuenteCadena[16];
+      sprintf(direccionFuenteCadena, "%u.%u.%u.%u",
+              direccionFuente >> 24 & 0xff,
+              direccionFuente >> 16 & 0xff,
+              direccionFuente >> 8 & 0xff,
+              direccionFuente & 0xff);
 
-      printf("cliente: %u.%u.%u.%u:%d\n",
-             s_addr_client >> 24 & 0xff,
-             s_addr_client >> 16 & 0xff,
-             s_addr_client >> 8 & 0xff,
-             s_addr_client & 0xff,
-             s_port_client);
+      // Guarda puerto fuente.
+      in_port_t puertoFuente = ntohs(msg_to_client_addr.sin_port);
 
-      res = num[0] + num[1];
+      printf("Paquete recibido de cliente: %s:%d\n", direccionFuenteCadena, puertoFuente);
+      
+      int res[2] = {num[0] + num[1], num[0] - num[1]};
+      printf("Suma: %d\n", res[0]);
+      printf("Resta: %d\n", res[1]);
 
       /* envía la petición al cliente. La estructura msg_to_client_addr contiene la dirección socket del cliente */
-      sendto(s, (char *)&res, sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, clilen);
+      sendto(s, (char *)res, 2 * sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, clilen);
+
+      printf("Respuesta enviada.\n");
    }
 }
