@@ -1,19 +1,19 @@
 #include "PaqueteDatagrama.h"
 #include "SocketDatagrama.h"
-#include "respuesta.h"
+#include "Respuesta.h"
 #include "mensaje.h"
 
-respuesta::Respuesta(int pl){ //recibe puerto
+Respuesta::Respuesta(int pl){ //recibe puerto
 	SocketDatagrama sd(pl);
 }
 
 
-mensaje respuesta::getRequest(){
+mensaje *Respuesta::getRequest(){
 
 	
 
 }
 
-respuesta::sendReply(char *respuesta){
+void Respuesta::sendReply(char *respuesta){
 
 }
