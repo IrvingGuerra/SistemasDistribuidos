@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
     int * datos = (int *)reply;
     for (unsigned int i = 0; i < sizeof(datos) / sizeof(int); i++)
     {
-        std::cout << "        " << i << ":" << datos[i] << std::endl;
+        std::cout << "Respuesta " << i << ":" << datos[i] << std::endl;
     }
 
     return 0;
