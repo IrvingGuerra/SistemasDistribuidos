@@ -1,17 +1,25 @@
-#include "PaqueteDatagrama.h"
-#include "SocketDatagrama.h"
+#include "respuesta.h"
 
 #include <iostream>
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     int puertoLocal = 5000;
 
-    SocketDatagrama sd(puertoLocal);
+    Respuesta res = new Respuesta(puertoLocal);
 
-    while (true)
-    {
+    //SocketDatagrama sd(puertoLocal);
+
+    while (true){
         // Recibe datos.
+        mensaje msn = res.getRequest();
+
+        switch(msn.operationId){
+            case 1: //suma
+            break;
+            case 2: //Resta
+            break;
+        }
+
         PaqueteDatagrama entrante(2 * sizeof(int));
         int recibidos = sd.recibe(entrante);
 
@@ -36,6 +44,7 @@ int main(int argc, char const *argv[])
         int enviados = sd.envia(saliente);
         std::cout << "Se enviaron " << enviados << "B" << std::endl;
     }
+
 
     return 0;
 }
