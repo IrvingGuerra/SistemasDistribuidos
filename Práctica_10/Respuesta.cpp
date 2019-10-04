@@ -7,7 +7,6 @@ Respuesta::Respuesta(int pl){ //recibe puerto
 	SocketDatagrama sd(pl);
 }
 
-
 mensaje *Respuesta::getRequest(){
 
 	// Recibe datos.

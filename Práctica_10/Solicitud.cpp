@@ -14,10 +14,8 @@ char * Solicitud::doOperation(char *IP, int puerto, int operationId, char *argum
     std::cout << "Se enviaron " << enviados << "B" << std::endl;
 
     // Recibe datos.
-    PaqueteDatagrama entrante(2 * sizeof(int));
+    PaqueteDatagrama entrante(sizeof(char));
     char * recibidos = sd.recibe(entrante);
 
-    std::cout << "Paquete recibido (" << recibidos << "B)" << std::endl;
-
-    return  recibidos;
+    return  (char *)entrante.obtieneDatos();;
 }
