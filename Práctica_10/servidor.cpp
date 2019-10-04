@@ -13,12 +13,25 @@ int main(int argc, char const *argv[]){
         // Recibe datos.
         mensaje msn = res.getRequest();
 
-        switch(msn.operationId){
-            case 1: //suma
-            break;
-            case 2: //Resta
-            break;
+        char response;
+
+        if (msn.messageType == 0){ //Solo recibe Solicitudes
+            switch(msn.operationId){
+                case 1: //suma
+                    response = msn.arguments[0] + msn.arguments[1];
+                break; 
+                case 2: //Resta
+                    response = msn.arguments[0] - msn.arguments[1];
+                break;
+            }
         }
+
+        res.sendReply(response);
+
+            
+
+/*
+        // Recibe datos.
 
         PaqueteDatagrama entrante(2 * sizeof(int));
         int recibidos = sd.recibe(entrante);
@@ -43,6 +56,8 @@ int main(int argc, char const *argv[]){
         PaqueteDatagrama saliente((char *)respuesta, longitudRespuesta, dirFuente, puertoFuente);
         int enviados = sd.envia(saliente);
         std::cout << "Se enviaron " << enviados << "B" << std::endl;
+*/ 
+
     }
 
 
