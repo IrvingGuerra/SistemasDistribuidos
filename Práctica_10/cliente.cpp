@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
     Solicitud sol();
 
     // Envía respuesta.
-    int _mensaje[2] = {10, 5};
+    int _mensaje[2] = {0, 0, 1, 10, 5};
     // int longitudMensaje = 2 * sizeof(int);
     // PaqueteDatagrama saliente((char *)_mensaje, longitudMensaje, "10.100.67.160", 5000);
     // int enviados = sd.envia(saliente);

@@ -7,6 +7,8 @@
 class Respuesta{
 	private:
 		SocketDatagrama *socketlocal;
+		const char * dirFuente;
+		int puertoFuente;
 	public:
 		Respuesta(int pl);
 		struct mensaje *getRequest(void);

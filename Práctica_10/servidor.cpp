@@ -13,20 +13,20 @@ int main(int argc, char const *argv[]){
         // Recibe datos.
         mensaje msn = res.getRequest();
 
-        char response;
+        int response;
 
         if (msn.messageType == 0){ //Solo recibe Solicitudes
             switch(msn.operationId){
                 case 1: //suma
-                    response = msn.arguments[0] + msn.arguments[1];
+                    int = msn.arguments[0] + msn.arguments[1];
                 break; 
                 case 2: //Resta
-                    response = msn.arguments[0] - msn.arguments[1];
+                    int = msn.arguments[0] - msn.arguments[1];
                 break;
             }
         }
 
-        res.sendReply(response);
+        res.sendReply((char *)response);
 
             
 

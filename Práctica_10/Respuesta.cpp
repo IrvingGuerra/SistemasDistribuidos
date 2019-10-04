@@ -11,13 +11,13 @@ Respuesta::Respuesta(int pl){ //recibe puerto
 mensaje *Respuesta::getRequest(){
 
 	// Recibe datos.
-	PaqueteDatagrama entrante(2 * sizeof(int));
+	PaqueteDatagrama entrante(5 * sizeof(int));
     int recibidos = sd.recibe(entrante);
 
     // Log de datos recibidos.
    	int * datos = (int *)entrante.obtieneDatos();
-   	const char * dirFuente = entrante.obtieneDireccion();
-    int puertoFuente = entrante.obtienePuerto();
+   	dirFuente = entrante.obtieneDireccion();
+    puertoFuente = entrante.obtienePuerto();
 
     mensaje request;
 
