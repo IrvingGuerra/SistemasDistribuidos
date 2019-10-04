@@ -8,16 +8,16 @@ int main(int argc, char const *argv[])
 
     // SocketDatagrama sd(puertoLocal);
 
-    Solicitud sol();
+    Solicitud sol;
 
     // Envía respuesta.
-    int _mensaje[2] = {0, 0, 1, 10, 5};
+    int _mensaje[5] = {0, 0, 1, 10, 5};
     // int longitudMensaje = 2 * sizeof(int);
     // PaqueteDatagrama saliente((char *)_mensaje, longitudMensaje, "10.100.67.160", 5000);
     // int enviados = sd.envia(saliente);
     // std::cout << "Se enviaron " << enviados << "B" << std::endl;
 
-    char * reply = sol.doOperation("10.100.67.160", 5000, 1, (char *)_mensaje);
+    char *respuesta = sol.doOperation("10.100.2.2", 500, 1, (char*)_mensaje);
 
     // Recibe datos.
     // PaqueteDatagrama entrante(2 * sizeof(int));
@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
     // std::cout << "    Longitud:" << reply.obtieneLongitud() << std::endl;
     // std::cout << "    Datos:" << std::endl;
     // int *datos = (int *)reply.obtieneDatos();
-    int * datos = (int *)reply;
+    int * datos = (int *)respuesta;
     for (unsigned int i = 0; i < sizeof(datos) / sizeof(int); i++)
     {
         std::cout << "Respuesta " << i << ":" << datos[i] << std::endl;

@@ -1,27 +1,27 @@
-#include "respuesta.h"
+#include "Respuesta.h"
 
 #include <iostream>
 
 int main(int argc, char const *argv[]){
     int puertoLocal = 5000;
 
-    Respuesta res = new Respuesta(puertoLocal);
+    Respuesta res(puertoLocal);
 
     //SocketDatagrama sd(puertoLocal);
 
     while (true){
         // Recibe datos.
-        mensaje msn = res.getRequest();
+        mensaje* msn = res.getRequest();
 
         int response;
 
-        if (msn.messageType == 0){ //Solo recibe Solicitudes
-            switch(msn.operationId){
+        if (msn->messageType == 0){ //Solo recibe Solicitudes
+            switch(msn->operationId){
                 case 1: //suma
-                    int = msn.arguments[0] + msn.arguments[1];
+                    response = msn->arguments[0] + msn->arguments[1];
                 break; 
                 case 2: //Resta
-                    int = msn.arguments[0] - msn.arguments[1];
+                    response = msn->arguments[0] - msn->arguments[1];
                 break;
             }
         }

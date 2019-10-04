@@ -1,8 +1,8 @@
 #include "Solicitud.h"
 
-Solicitud::Solicitud(SocketDatagrama *socketlocal){
+Solicitud::Solicitud(){
     int puertoLocal = 6000;
-    SocketDatagrama sd(puertoLocal);
+    socketlocal = new SocketDatagrama(puertoLocal);
 }
 
 char * Solicitud::doOperation(char *IP, int puerto, int operationId, char *arguments){
@@ -10,12 +10,11 @@ char * Solicitud::doOperation(char *IP, int puerto, int operationId, char *argum
    // int mensaje[2] = {10, 5};
     int longitudMensaje = 5 * sizeof(int);
     PaqueteDatagrama saliente(arguments, longitudMensaje, IP, puerto);
-    int enviados = sd.envia(saliente);
-    std::cout << "Se enviaron " << enviados << "B" << std::endl;
+    int enviados = socketlocal->envia(saliente);
 
     // Recibe datos.
     PaqueteDatagrama entrante(sizeof(char));
-    char * recibidos = sd.recibe(entrante);
+    int recibidos = socketlocal->recibe(entrante);
 
-    return  (char *)entrante.obtieneDatos();;
+    return (char *)entrante.obtieneDatos();
 }
