@@ -13,20 +13,22 @@ int main(int argc, char const *argv[]){
         // Recibe datos.
         mensaje* msn = res.getRequest();
 
-        int response;
+        int operacion[1] = {0};
 
         if (msn->messageType == 0){ //Solo recibe Solicitudes
             switch(msn->operationId){
                 case 1: //suma
-                    response = msn->arguments[0] + msn->arguments[1];
+                    operacion[0] = msn->arguments[0] + msn->arguments[1];
                 break; 
                 case 2: //Resta
-                    response = msn->arguments[0] - msn->arguments[1];
+                    operacion[0] = msn->arguments[0] - msn->arguments[1];
                 break;
             }
         }
 
-        res.sendReply((char *)response);
+        std::cout << "La operacion fue = " << operacion[0] << std::endl;
+
+        res.sendReply((char *)operacion); 
 
             
 

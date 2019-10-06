@@ -11,13 +11,15 @@ int main(int argc, char const *argv[])
     Solicitud sol;
 
     // Envía respuesta.
-    int _mensaje[5] = {0, 0, 1, 10, 5};
+    int _mensaje[5] = {0, 0, 1, 4, 5};
     // int longitudMensaje = 2 * sizeof(int);
     // PaqueteDatagrama saliente((char *)_mensaje, longitudMensaje, "10.100.67.160", 5000);
     // int enviados = sd.envia(saliente);
     // std::cout << "Se enviaron " << enviados << "B" << std::endl;
 
-    char *respuesta = sol.doOperation("10.100.2.2", 500, 1, (char*)_mensaje);
+    char address[] = "192.168.0.2";
+
+    char *respuesta = sol.doOperation((char *)address, 5000, 1, (char *)_mensaje);
 
     // Recibe datos.
     // PaqueteDatagrama entrante(2 * sizeof(int));
@@ -32,11 +34,11 @@ int main(int argc, char const *argv[])
     // std::cout << "    Longitud:" << reply.obtieneLongitud() << std::endl;
     // std::cout << "    Datos:" << std::endl;
     // int *datos = (int *)reply.obtieneDatos();
+
     int * datos = (int *)respuesta;
-    for (unsigned int i = 0; i < sizeof(datos) / sizeof(int); i++)
-    {
-        std::cout << "Respuesta " << i << ":" << datos[i] << std::endl;
-    }
+
+    std::cout << "El resultado es: :"  << datos[0] << std::endl;
+
 
     return 0;
 }
