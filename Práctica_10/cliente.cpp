@@ -4,39 +4,26 @@
 
 int main(int argc, char const *argv[])
 {
-    // int puertoLocal = 6000;
-
-    // SocketDatagrama sd(puertoLocal);
-
-    Solicitud sol;
-
-    // Envía respuesta.
-    int _mensaje[5] = {0, 0, 1, 10, 5};
-    // int longitudMensaje = 2 * sizeof(int);
-    // PaqueteDatagrama saliente((char *)_mensaje, longitudMensaje, "10.100.67.160", 5000);
-    // int enviados = sd.envia(saliente);
-    // std::cout << "Se enviaron " << enviados << "B" << std::endl;
-
-    char *respuesta = sol.doOperation("10.100.2.2", 500, 1, (char*)_mensaje);
-
-    // Recibe datos.
-    // PaqueteDatagrama entrante(2 * sizeof(int));
-    // int recibidos = sd.recibe(entrante);
-
-    // Log de datos recibidos.
-    // const char *dirFuente = reply.obtieneDireccion();
-    // int puertoFuente = reply.obtienePuerto();
-    // std::cout << "Paquete recibido (" << recibidos << "B)" << std::endl;
-    // std::cout << "    Dirección fuente:" << dirFuente << std::endl;
-    // std::cout << "    Puerto fuente:" << puertoFuente << std::endl;
-    // std::cout << "    Longitud:" << reply.obtieneLongitud() << std::endl;
-    // std::cout << "    Datos:" << std::endl;
-    // int *datos = (int *)reply.obtieneDatos();
-    int * datos = (int *)respuesta;
-    for (unsigned int i = 0; i < sizeof(datos) / sizeof(int); i++)
+    if (argc != 3)
     {
-        std::cout << "Respuesta " << i << ":" << datos[i] << std::endl;
+        printf("Forma de ejecutar: ./%s [SERVER IP ADDRESS] [SERVER PORT]\n", argv[0]);
+        exit(0);
     }
+
+    // Obtención de operandos.
+    int operandos[2];
+    std::cout << "Ingrese operandos separados por espacio: ";
+    std::cin >> operandos[0] >> operandos[1];
+
+    // Solicitud.
+    Solicitud solicitud;
+    int resultado;
+
+    // Resultados.
+    resultado = *(int *)solicitud.doOperation(argv[1], atoi(argv[2]), ADD, (char *)operandos, sizeof(operandos));
+    std::cout << "Suma: " << resultado << std::endl;
+    resultado = *(int *)solicitud.doOperation(argv[1], atoi(argv[2]), SUB, (char *)operandos, sizeof(operandos));
+    std::cout << "Resta: " << resultado << std::endl;
 
     return 0;
 }

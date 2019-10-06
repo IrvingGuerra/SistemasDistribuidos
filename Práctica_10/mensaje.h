@@ -1,19 +1,32 @@
 #ifndef MENSAJE_H
 #define MENSAJE_H
 
-#define TAM_MAX_DATA 16376
-//Definicion de identificadores para operaciones permitidas
-#define suma 1
-// Definicion del formato de mensaje
+// Tamaño máximo de bytes que se pueden mandar.
+#define MAX_DATA_SIZE 4000 //16360 //4
+
+// Tipos de operaciones.
+#define ADD 1 // Suma
+#define SUB 2 // Resta
+
+// Tipos de mensaje.
+#define REQUEST 0
+#define REPLY 1
+
+// Definicion del formato de mensaje.
 struct mensaje
 {
+	// 0: Solicitud, 1: Respuesta
 	int messageType;
-	//0= Solicitud, 1 = Respuesta
-	unsigned int requestId;
-	//Identificador del mensaje
-	int operationId;
-	//Identificador de la operación
-	char arguments[TAM_MAX_DATA];
+
+	// Identificador del mensaje
+	unsigned int requestID;
+
+	// Identificador de la operación
+	int operationID;
+
+	// Datos a ser mandados.
+	char args[MAX_DATA_SIZE];
+
 };
 
 #endif
