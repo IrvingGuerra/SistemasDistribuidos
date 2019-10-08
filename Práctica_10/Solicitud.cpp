@@ -1,9 +1,11 @@
 #include "Solicitud.h"
+#include <iostream>
 
 Solicitud::Solicitud()
 {
     socketlocal = new SocketDatagrama(0);
 }
+
 
 char *Solicitud::doOperation(const char *serverIpAdress, int serverPort, int operationID, char *args, unsigned int argsLen)
 {
@@ -56,4 +58,5 @@ char *Solicitud::doOperation(const char *serverIpAdress, int serverPort, int ope
 
     // Se retorna el resultado de la operación enviada al servidor.
     return _reply->args;
+
 }

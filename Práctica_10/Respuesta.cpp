@@ -6,12 +6,12 @@ Respuesta::Respuesta(int port)
     socketLocal = new SocketDatagrama(port);
 }
 
-mensaje * Respuesta::getRequest()
+mensaje *Respuesta::getRequest()
 {
     // Recibe respuesta.
     PaqueteDatagrama request(MAX_LONGITUD_DATOS);
     socketLocal->recibe(request);
-    mensaje * m = new mensaje[1];
+    mensaje *m = new mensaje[1];
     memcpy(m, request.obtieneDatos(), sizeof(mensaje));
     // Guarda datos de la petición para mandar la respuesta.
     strcpy(clientIpAddress, request.obtieneDireccion());
@@ -25,7 +25,7 @@ mensaje * Respuesta::getRequest()
  * Se manda un mensaje de respuesta por parte del servidor
  * Se asume que la respuesta es un arreglo;;
  */
-void Respuesta::sendReply(char * reply, unsigned int replyLen)
+void Respuesta::sendReply(char *reply, unsigned int replyLen)
 {
     // Genera un mensaje para enviar la respuesta.
     mensaje _reply = {REPLY, requestID, operationID};

@@ -24,6 +24,7 @@ int main(int argc, char const *argv[])
         // Preparamos respuesta.
         int resultado;
         switch (solicitud->operationID)
+
         {
         case ADD:
         {
