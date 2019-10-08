@@ -5,7 +5,7 @@ CC = g++
 EXCLUDED_FILES = servidor.cpp Respuesta.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
 
-SERVER_IP_ADDRESS = 10.211.222.169
+SERVER_IP_ADDRESS = 10.100.75.12
 SERVER_PORT = 5000
 ARGS = $(SERVER_IP_ADDRESS) $(SERVER_PORT)
 
