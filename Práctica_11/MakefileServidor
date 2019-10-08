@@ -1,0 +1,25 @@
+PROJECT = servidor
+CFLAGS = -Wall
+LDFLAGS = -lm -lpthread
+CC = g++
+EXCLUDED_FILES = cliente.cpp Solicitud.cpp
+OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES), $(wildcard *.cpp)))
+
+LISTENING_PORT = 5000
+ARGS = $(LISTENING_PORT)
+
+all: $(PROJECT)
+
+%.o: %.cpp
+	$(CC) -c $< $(CFLAGS)
+
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(OBJECTS) $(PROJECT)
+
+run:
+	./$(PROJECT) $(ARGS)
