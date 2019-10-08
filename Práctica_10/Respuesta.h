@@ -1,18 +1,37 @@
 #ifndef SOLICITUD_H
 #define SOLICITUD_H
 
-#include "mensaje.h"
+#include "PaqueteDatagrama.h"
 #include "SocketDatagrama.h"
+#include "mensaje.h"
 
-class Respuesta{
-	private:
-		SocketDatagrama *socketlocal;
-		const char * dirFuente;
-		int puertoFuente;
-	public:
-		Respuesta(int pl);
-		struct mensaje *getRequest(void);
-		void sendReply(char *respuesta);
+class Respuesta
+{
+private:
+public:
+	// Socket para enviar respuestas y recibir peticiones.
+	SocketDatagrama *socketLocal;
+
+	// Dirección de cliente que hizo la solicitud.
+	char clientIpAddress[16];
+
+	// Puerto de cliente que hizo la solicitud.
+	int clientPort;
+
+	// ID de solicitud.
+	unsigned int requestID;
+
+	// ID de operación.
+	int operationID;
+
+	// Constructor de un objeto que envía respuestas.
+	Respuesta(int port);
+
+	// Obtiene una respuesta de algún cliente.
+	mensaje *getRequest();
+
+	// Envía respuestas.
+	void sendReply(char *reply, unsigned int replyLen);
 };
 
 #endif
