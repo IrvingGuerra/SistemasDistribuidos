@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
     }
 
     // Obtención de operandos.
-    int operandos[2] = {1, 1};
+    int operandos[2] = {0, 0};
     // std::cout << "Ingrese operandos separados por espacio: ";
     // std::cin >> operandos[0] >> operandos[1];
 
@@ -25,8 +25,10 @@ int main(int argc, char const *argv[])
     register int i = 0;
     for (i = 0; i < reqs; i++)
     {
+        //operandos[0] = i;
         resultado = *(int *)solicitud.doOperation(argv[1], atoi(argv[2]), ADD, (char *)operandos, sizeof(operandos));
-        std::cout << i << std::endl;
+        if (i % 100 == 0)
+            std::cout << i << std::endl;
     }
 
     return 0;
