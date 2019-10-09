@@ -2,7 +2,7 @@
 #define MENSAJE_H
 
 // Tamaño máximo de bytes que se pueden mandar.
-#define MAX_DATA_SIZE 4000 //16360 //4
+#define MAX_DATA_SIZE 8 //16360 //4
 
 // Tipos de operaciones.
 #define ADD 1 // Suma
