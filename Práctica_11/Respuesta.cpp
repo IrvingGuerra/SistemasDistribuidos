@@ -9,7 +9,7 @@ Respuesta::Respuesta(int port)
 mensaje *Respuesta::getRequest()
 {
     // Recibe respuesta.
-    PaqueteDatagrama request(MAX_LONGITUD_DATOS);
+    PaqueteDatagrama request(MAX_DATA_SIZE + 12);
     socketLocal->recibe(request);
     mensaje *m = new mensaje[1];
     memcpy(m, request.obtieneDatos(), sizeof(mensaje));

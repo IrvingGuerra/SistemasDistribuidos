@@ -23,7 +23,7 @@ char *Solicitud::doOperation(const char *serverIpAdress, int serverPort, int ope
     socketlocal->envia(saliente);
 
     // Se recibe un mensaje
-    PaqueteDatagrama entrante(MAX_DATA_SIZE);
+    PaqueteDatagrama entrante(MAX_DATA_SIZE + 12);
     register int i = 0;
     for (i = 0; i < 7; i++) {
         if (socketlocal->recibeTimeout(entrante, 2, 500000) != -1) {
