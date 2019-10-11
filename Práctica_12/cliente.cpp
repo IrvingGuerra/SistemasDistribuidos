@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
     }
 
     // Obtención de operandos.
-    int operandos[2] = {0, 0};
+    // int operandos[2] = {0, 0};
     // std::cout << "Ingrese operandos separados por espacio: ";
     // std::cin >> operandos[0] >> operandos[1];
 
@@ -23,12 +23,18 @@ int main(int argc, char const *argv[])
     // Resultados.
     int reqs = atoi(argv[3]);
     register int i = 0;
+    int valorEsperado;
     for (i = 0; i < reqs; i++)
     {
-        //operandos[0] = i;
-        resultado = *(int *)solicitud.doOperation(argv[1], atoi(argv[2]), ADD, (char *)operandos, sizeof(operandos));
-        if (i % 100 == 0)
-            std::cout << i << std::endl;
+        int valorDeposito = rand() % 8 + 1;
+        valorEsperado += valorDeposito;
+        resultado = *(int *)solicitud.doOperation(argv[1], atoi(argv[2]), DEPOSITO, (char *)&valorDeposito, sizeof(valorDeposito));
+        if (valorEsperado == resultado) {
+            printf("Depósito de $%d realizado. Ahora se tiene $%d en la cuenta.\n", valorDeposito, resultado);
+        } else {
+            printf("Fallo en depósito de $%d. Se esperaban $%d y se obtuvieron $%d\n", valorDeposito,  valorEsperado, resultado);
+            exit(EXIT_FAILURE);
+        }
     }
 
     return 0;

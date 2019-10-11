@@ -27,8 +27,8 @@ int main(int argc, char const *argv[])
     {
         //operandos[0] = i;
         resultado = *(int *)solicitud.doOperation(argv[1], atoi(argv[2]), ADD, (char *)operandos, sizeof(operandos));
-        if (i % 100 == 0)
-            std::cout << i << std::endl;
+        // if (i % 100 == 0)
+        //     std::cout << i << std::endl;
     }
 
     return 0;

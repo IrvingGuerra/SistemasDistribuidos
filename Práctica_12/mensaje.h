@@ -7,6 +7,7 @@
 // Tipos de operaciones.
 #define ADD 1 // Suma
 #define SUB 2 // Resta
+#define DEPOSITO 3
 
 // Tipos de mensaje.
 #define REQUEST 0

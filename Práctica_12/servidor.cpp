@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     }
 
     Respuesta respuesta(atoi(argv[1]));
-
+    int nbd = 0;
     while (true)
     {
         // Recibe mensaje.
@@ -24,7 +24,6 @@ int main(int argc, char const *argv[])
         // Preparamos respuesta.
         int resultado;
         switch (solicitud->operationID)
-
         {
         case ADD:
         {
@@ -36,6 +35,9 @@ int main(int argc, char const *argv[])
             resultado = ((int *)solicitud->args)[0] - ((int *)solicitud->args)[1];
             break;
         }
+        case DEPOSITO:
+            nbd += *(int *)solicitud->args;
+            resultado = nbd;
         }
         
         printf("Enviando resultado: %d\n", resultado);
