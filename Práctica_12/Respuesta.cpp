@@ -16,6 +16,7 @@ mensaje *Respuesta::getRequest()
     // Guarda datos de la petición para mandar la respuesta.
     strcpy(clientIpAddress, request.obtieneDireccion());
     clientPort = request.obtienePuerto();
+    newRequest = requestID != m->requestID;
     requestID = m->requestID;
     operationID = m->operationID;
     return m;

@@ -9,7 +9,10 @@ class Respuesta
 {
 private:
 public:
-	// Socket para enviar respuestas y recibir peticiones.
+	// Bandera que indica si la petición fue enviada de nuevo.
+	bool newRequest = false;
+	
+	// Socket para enviarobtieneDireccion respuestas y recibir peticiones.
 	SocketDatagrama *socketLocal;
 
 	// Dirección de cliente que hizo la solicitud.

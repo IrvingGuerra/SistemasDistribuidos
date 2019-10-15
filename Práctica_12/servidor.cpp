@@ -8,6 +8,8 @@ int main(int argc, char const *argv[])
     }
 
     Respuesta respuesta(atoi(argv[1]));
+    // Preparamos respuesta.
+    int resultado;
     int nbd = 0;
     while (true)
     {
@@ -21,26 +23,28 @@ int main(int argc, char const *argv[])
             exit(EXIT_FAILURE);
         }
 
-        // Preparamos respuesta.
-        int resultado;
-        switch (solicitud->operationID)
+        if (respuesta.newRequest)
         {
-        case ADD:
-        {
-            resultado = ((int *)solicitud->args)[0] + ((int *)solicitud->args)[1];
-            break;
+            switch (solicitud->operationID)
+            {
+            case ADD:
+            {
+                resultado = ((int *)solicitud->args)[0] + ((int *)solicitud->args)[1];
+                break;
+            }
+            case SUB:
+            {
+                resultado = ((int *)solicitud->args)[0] - ((int *)solicitud->args)[1];
+                break;
+            }
+            case DEPOSITO:
+                nbd += *(int *)solicitud->args;
+                resultado = nbd;
+            }
+            printf("Enviando resultado: %d.\n", resultado);
+        } else {
+            printf("Reenviando resultado: %d\n", resultado);
         }
-        case SUB:
-        {
-            resultado = ((int *)solicitud->args)[0] - ((int *)solicitud->args)[1];
-            break;
-        }
-        case DEPOSITO:
-            nbd += *(int *)solicitud->args;
-            resultado = nbd;
-        }
-
-        printf("Enviando resultado: %d.\n", resultado);
 
         // Enviamos resultado.
         respuesta.sendReply((char *)&resultado, sizeof(resultado));
