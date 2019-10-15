@@ -1,7 +1,7 @@
 PROJECT = servidor
 CFLAGS = -Wall
 LDFLAGS = -lm -lpthread
-CC = g++
+CC = g++ -g3
 EXCLUDED_FILES = cliente.cpp Solicitud.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES), $(wildcard *.cpp)))
 

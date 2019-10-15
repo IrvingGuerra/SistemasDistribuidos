@@ -5,6 +5,7 @@
 #include <netdb.h>
 #include <strings.h>
 #include <stdio.h>
+#include <string.h>
 
 #define MAX_LONGITUD_DATOS 16376
 
@@ -15,7 +16,7 @@ int main(void)
    int s, clilen;
    struct sockaddr_in server_addr, msg_to_client_addr;
 
-   s = socket(AF_INET, SOCK_DGRAM, 0);
+   s = socket(AF_INET, SO_BROADCAST, 0);
    /* se asigna una direccion al socket del servidor*/
    bzero((char *)&server_addr, sizeof(server_addr));
    server_addr.sin_family = AF_INET;
@@ -39,15 +40,18 @@ int main(void)
       // Guarda puerto fuente.
       in_port_t puertoFuente = ntohs(msg_to_client_addr.sin_port);
 
-      printf("Paquete recibido de cliente: %s:%d\n", direccionFuenteCadena, puertoFuente);
-      
-      int res[2] = {num[0] + num[1], num[0] - num[1]};
-      printf("Suma: %d\n", res[0]);
-      printf("Resta: %d\n", res[1]);
+      if (strcmp(direccionFuenteCadena, "10.100.78.55") == 0)
+      {
+         printf("Paquete recibido de cliente: %s:%d\n", direccionFuenteCadena, puertoFuente);
 
-      /* envía la petición al cliente. La estructura msg_to_client_addr contiene la dirección socket del cliente */
-      sendto(s, (char *)res, 2 * sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, clilen);
+         int res[2] = {num[0] + num[1], num[0] - num[1]};
+         printf("Suma: %d\n", res[0]);
+         printf("Resta: %d\n", res[1]);
 
-      printf("Respuesta enviada.\n");
+         /* envía la petición al cliente. La estructura msg_to_client_addr contiene la dirección socket del cliente */
+         sendto(s, (char *)res, 2 * sizeof(int), 0, (struct sockaddr *)&msg_to_client_addr, clilen);
+
+         printf("Respuesta enviada.\n");
+      }
    }
 }

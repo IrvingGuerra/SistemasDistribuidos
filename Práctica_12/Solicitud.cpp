@@ -20,13 +20,13 @@ char *Solicitud::doOperation(const char *serverIpAdress, int serverPort, int ope
 
     // Genera y envía paquete de datagrama.
     PaqueteDatagrama saliente((char *)&_request, sizeof(_request), serverIpAdress, serverPort);
-    socketlocal->envia(saliente);
 
     // Se recibe un mensaje
     PaqueteDatagrama entrante(MAX_DATA_SIZE + 12);
     register int i = 0;
     for (i = 0; i < 7; i++) {
-        if (socketlocal->recibeTimeout(entrante, 2, 500000) != -1) {
+        socketlocal->envia(saliente);
+        if (socketlocal->recibeTimeout(entrante, 1, 0) != -1) {
             break;
         }
     }

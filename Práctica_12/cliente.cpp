@@ -23,16 +23,16 @@ int main(int argc, char const *argv[])
     // Resultados.
     int reqs = atoi(argv[3]);
     register int i = 0;
-    int valorEsperado;
+    int valorEsperado = 0;
     for (i = 0; i < reqs; i++)
     {
         int valorDeposito = rand() % 8 + 1;
-        valorEsperado += valorDeposito;
         resultado = *(int *)solicitud.doOperation(argv[1], atoi(argv[2]), DEPOSITO, (char *)&valorDeposito, sizeof(valorDeposito));
+        valorEsperado += valorDeposito;
         if (valorEsperado == resultado) {
             printf("Depósito de $%d realizado. Ahora se tiene $%d en la cuenta.\n", valorDeposito, resultado);
         } else {
-            printf("Fallo en depósito de $%d. Se esperaban $%d y se obtuvieron $%d\n", valorDeposito,  valorEsperado, resultado);
+            printf("Fallo en depósito %d de $%d. Se esperaban $%d y se obtuvieron $%d\n", i, valorDeposito,  valorEsperado, resultado);
             exit(EXIT_FAILURE);
         }
     }

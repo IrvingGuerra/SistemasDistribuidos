@@ -18,7 +18,7 @@ int main(int argc, char **argv)
    /* rellena la dirección del servidor */
    bzero((char *)&msg_to_server_addr, sizeof(msg_to_server_addr));
    msg_to_server_addr.sin_family = AF_INET;
-   msg_to_server_addr.sin_addr.s_addr = inet_addr("10.211.222.169");
+   msg_to_server_addr.sin_addr.s_addr = inet_addr("10.100.95.255");
    msg_to_server_addr.sin_port = htons(5000);
 
    /* rellena la direcciòn del cliente*/

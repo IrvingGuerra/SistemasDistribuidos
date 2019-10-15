@@ -39,8 +39,8 @@ int main(int argc, char const *argv[])
             nbd += *(int *)solicitud->args;
             resultado = nbd;
         }
-        
-        printf("Enviando resultado: %d\n", resultado);
+
+        printf("Enviando resultado: %d.\n", resultado);
 
         // Enviamos resultado.
         respuesta.sendReply((char *)&resultado, sizeof(resultado));
