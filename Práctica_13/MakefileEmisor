@@ -1,0 +1,29 @@
+PROJECT = emisor
+CFLAGS = -Wall
+LDFLAGS = -lm -lpthread
+CC = g++
+EXCLUDED_FILES = receptor.cpp
+OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES), $(wildcard *.cpp)))
+
+MULTICAST_GROUP = 224.0.0.10
+CASTING_PORT = 5000
+TTL = 2
+MESSAGE = "Saludo al grupo $(MULTICAST_GROUP)"
+
+ARGS = $(MULTICAST_GROUP) $(CASTING_PORT) $(TTL) $(MESSAGE)
+
+all: $(PROJECT)
+
+%.o: %.cpp
+	$(CC) -c $< $(CFLAGS)
+
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(OBJECTS) $(PROJECT)
+
+run:
+	./$(PROJECT) $(ARGS)
