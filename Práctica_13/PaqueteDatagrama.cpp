@@ -1,22 +1,22 @@
 #include "PaqueteDatagrama.h"
 
-// PaqueteDatagrama::PaqueteDatagrama(char *datos, unsigned int longitud, const char *ip, int puerto)
-// {
-//     if (longitud > MAX_LONGITUD_DATOS)
-//     {
-//         perror("Longitud de datos demasiado grande.");
-//         exit(EXIT_FAILURE);
-//     }
+PaqueteDatagrama::PaqueteDatagrama(char *datos, unsigned int longitud, const char *ip, int puerto)
+{
+    if (longitud > MAX_LONGITUD_DATOS)
+    {
+        perror("Longitud de datos demasiado grande.");
+        exit(EXIT_FAILURE);
+    }
 
-//     this->datos = new char[longitud];
-//     memcpy(this->datos, datos, longitud);
+    this->datos = new char[longitud];
+    memcpy(this->datos, datos, longitud);
 
-//     this->longitud = longitud;
+    this->longitud = longitud;
 
-//     strcpy(this->ip, ip);
+    strcpy(this->ip, ip);
 
-//     this->puerto = puerto;
-// }
+    this->puerto = puerto;
+}
 
 PaqueteDatagrama::PaqueteDatagrama(unsigned int longitud)
 {

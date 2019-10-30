@@ -13,10 +13,8 @@ class SocketMulticast
 {
 private:
     int socketId;
-    sockaddr_in direccion;
 public:
     SocketMulticast(int puerto);
-    SocketMulticast();
     ~SocketMulticast();
     int recibe(PaqueteDatagrama &pd);
     int envia(PaqueteDatagrama &pd, unsigned char ttl);

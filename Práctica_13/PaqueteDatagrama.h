@@ -10,8 +10,7 @@
 class PaqueteDatagrama
 {
 public:
-    // Dado que los destinos ya no realizan peticiones, los paquetes ya no tienen destinatarios.
-    // PaqueteDatagrama(char *, unsigned int, const char *, int);
+    PaqueteDatagrama(char *, unsigned int, const char *, int);
     PaqueteDatagrama(unsigned int longitud);
     ~PaqueteDatagrama();
     const char *obtieneDireccion();

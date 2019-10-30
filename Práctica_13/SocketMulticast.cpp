@@ -4,6 +4,14 @@ SocketMulticast::SocketMulticast(int puerto)
 {
     socketId = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
+    int reuse = 1;
+    if (setsockopt(socketId, SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse)) == -1)
+    {
+        printf("Error al llamar a la función setsockopt\n");
+        exit(0);
+    }
+
+    sockaddr_in direccion;
     int len = sizeof(direccion);
     bzero(&direccion, len);
     direccion.sin_family = AF_INET;
@@ -51,12 +59,19 @@ int SocketMulticast::envia(PaqueteDatagrama &pd, unsigned char ttl)
 {
     unsigned char TTL = ttl;
     setsockopt(socketId, IPPROTO_IP, IP_MULTICAST_TTL, (void *)&TTL, sizeof(TTL));
-    return sendto(socketId, pd.obtieneDatos(), pd.obtieneLongitud(), 0, (sockaddr *)&direccion, sizeof(direccion));
+
+    sockaddr_in direccionGrupo;
+    int len = sizeof(direccionGrupo);
+    bzero(&direccionGrupo, len);
+    direccionGrupo.sin_family = AF_INET;
+    direccionGrupo.sin_addr.s_addr = inet_addr(pd.obtieneDireccion());
+    direccionGrupo.sin_port = htons(pd.obtienePuerto());
+
+    return sendto(socketId, pd.obtieneDatos(), pd.obtieneLongitud(), 0, (sockaddr *)&direccionGrupo, sizeof(direccionGrupo));
 }
 
 void SocketMulticast::unirAlGrupo(const char *direccionMulticast)
 {
-    direccion.sin_addr.s_addr = inet_addr(direccionMulticast);
     ip_mreq multicast;
     multicast.imr_multiaddr.s_addr = inet_addr(direccionMulticast);
     multicast.imr_interface.s_addr = INADDR_ANY;
