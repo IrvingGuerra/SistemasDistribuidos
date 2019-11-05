@@ -1,7 +1,8 @@
 #include "SocketMulticast.h"
+#include "SocketDatagrama.h"
 
 int main(int argc, char const *argv[])
-{
+{   
     if (argc != 5)
     {
         printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO PARA ENVIAR] [TTL] [CADENA A ENVIAR]\n",
@@ -27,17 +28,25 @@ int main(int argc, char const *argv[])
     //socket.unirAlGrupo(direccionMulticast);
 
     // Se genera paquete y se envía.
-    while (true)
+
+    PaqueteDatagrama pd(cadenaParaEnviar, longitudCadena, direccionMulticast, puertoTransmision);
+    if (socket.envia(pd, ttl) < 0)
     {
-        PaqueteDatagrama pd(cadenaParaEnviar, longitudCadena, direccionMulticast, puertoTransmision);
-        if (socket.envia(pd, ttl) < 0)
-        {
-            printf("Error al enviar paquete\n");
-            exit(1);
-        }
-        printf("Se emitió un paquete de datagrama al grupo indicado.\n");
-        sleep(1);
+        printf("Error al enviar paquete\n");
+        exit(1);
     }
+    printf("Se emitió un paquete de datagrama al grupo indicado.\n");
+
+
+    SocketDatagrama socketUnicast(6000);
+    PaqueteDatagrama request(MAX_LONGITUD_DATOS);
+
+    for (int i = 0; i < 5; ++i)
+    {
+        socketUnicast.recibe(request);
+        printf("Si recibi respuesta de: %s\n",request.obtieneDireccion());
+    }
+        
 
     return 0;
 }
