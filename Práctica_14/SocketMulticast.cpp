@@ -85,11 +85,6 @@ int SocketMulticast::recibeConfiable(PaqueteDatagrama &pd)
 
 //    this->salirDelGrupo(direccionMulticast);
     sprintf(dirFuente, "%s", pd.obtieneDireccion());
-
-    printf("\nSe recibió un paquete en el grupo.\n");
-    printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
-    printf("\tContenido: %s.\n", pd.obtieneDatos());
-
  
     // Se abre socket.
     SocketDatagrama socketUnicast(7000);

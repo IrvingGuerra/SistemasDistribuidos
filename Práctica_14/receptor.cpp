@@ -3,7 +3,6 @@
 
 int main(int argc, char const *argv[])
 {
-
     if (argc != 3)
     {
         printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO DE ESCUCHA]\n", argv[0]);
@@ -11,9 +10,8 @@ int main(int argc, char const *argv[])
     }
 
     // Extracción de parámetros.
-
-
-
+   char dirFuente[16];
+    int nbd = 0, numDepositos;
     char direccionMulticast[16];
     sprintf(direccionMulticast, "%s", argv[1]);
 
@@ -30,7 +28,25 @@ int main(int argc, char const *argv[])
         printf("Error al recibir paquete\n");
         exit(1);
     }
-    sleep(1);
+
+    numDepositos = *(int*)pd.obtieneDatos();
+  for(int i = 0; i < numDepositos; i++){  
+       if (socket.recibeConfiable(pd) < 0) {
+            printf("Error al recibir paquete\n");
+            exit(1);
+        }
+        sprintf(dirFuente, "%s", pd.obtieneDireccion());
+
+         printf("\nSe recibió un paquete en el grupo.\n");
+        printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
+        printf("\tContenido: %d.\n", *(int*)pd.obtieneDatos());
+
+        nbd += (*(int*)pd.obtieneDatos());
+
+        printf("valor de nbd: %d\n", nbd);
+        
+        sleep(1);
+    }
 /*    char dirFuente[16];
     sprintf(dirFuente, "%s", pd.obtieneDireccion());
 
