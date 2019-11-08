@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <errno.h>
 
+#include "SocketDatagrama.h"
 #include "PaqueteDatagrama.h"
 
 class SocketMulticast
@@ -17,6 +18,7 @@ public:
     SocketMulticast(int puerto);
     ~SocketMulticast();
     int recibe(PaqueteDatagrama &pd);
+    int recibeConfiable(PaqueteDatagrama &pd);
     int envia(PaqueteDatagrama &pd, unsigned char ttl);
     int enviaConfiable(PaqueteDatagrama &pd, unsigned char ttl, int num_receptores);
     void unirAlGrupo(const char * direccionMulticast);

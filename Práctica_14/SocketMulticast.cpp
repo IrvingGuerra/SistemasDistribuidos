@@ -109,19 +109,18 @@ int SocketMulticast::enviaConfiable(PaqueteDatagrama &pd, unsigned char ttl, int
     direccionGrupo.sin_family = AF_INET;
     direccionGrupo.sin_addr.s_addr = inet_addr(pd.obtieneDireccion());
     direccionGrupo.sin_port = htons(pd.obtienePuerto());
-    sendto(socketId, pd.obtieneDatos(), pd.obtieneLongitud(), 0, (sockaddr *)&direccionGrupo, sizeof(direccionGrupo));
+    int enviados = sendto(socketId, pd.obtieneDatos(), pd.obtieneLongitud(), 0, (sockaddr *)&direccionGrupo, sizeof(direccionGrupo));
 
     SocketDatagrama socketUnicast(6000);
     PaqueteDatagrama request(MAX_LONGITUD_DATOS);
 
     for (int i = 0; i < num_receptores; ++i)
     {
-        socketUnicast.recibe(request);
-        printf("Si recibi respuesta de: %s\n",request.obtieneDireccion());
+        socketUnicast.recibeTimeout(request, 2, 0);
+        printf("Si recibi respuesta de: %s\n", request.obtieneDireccion());
     }
 
-    
-
+    return enviados;
 }
 
 void SocketMulticast::unirAlGrupo(const char *direccionMulticast)
