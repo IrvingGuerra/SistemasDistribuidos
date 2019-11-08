@@ -28,9 +28,9 @@ int main(int argc, char const *argv[])
     //socket.unirAlGrupo(direccionMulticast);
 
     // Se genera paquete y se envía.
-
+//enviados
     PaqueteDatagrama pd(cadenaParaEnviar, longitudCadena, direccionMulticast, puertoTransmision);
-
+/*
     if (socket.envia(pd, ttl) < 0)
     {
         printf("Error al enviasalirDelGrupor paquete\n");
@@ -54,6 +54,11 @@ int main(int argc, char const *argv[])
         exit(1);
     }
     printf("Se envio el mensaje exitosamente");
+*/
+    if(socket.enviaConfiable(pd, ttl, 1) < 0){
+        printf("Error al enviasalirDelGrupor paquete\n");
+        exit(1);
+    }
 
     return 0;
 }

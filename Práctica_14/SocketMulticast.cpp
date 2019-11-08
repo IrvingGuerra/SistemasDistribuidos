@@ -58,6 +58,8 @@ int SocketMulticast::recibe(PaqueteDatagrama &pd)
 int SocketMulticast::recibeConfiable(PaqueteDatagrama &pd)
 {
     // Recibe datos.
+
+    char dirFuente[16];
     sockaddr_in direccionForanea;
     int longitudForanea = sizeof(direccionForanea);
     int recibidos = recvfrom(socketId,
@@ -81,7 +83,27 @@ int SocketMulticast::recibeConfiable(PaqueteDatagrama &pd)
     in_port_t puertoFuente = ntohs(direccionForanea.sin_port);
     pd.inicializaPuerto(puertoFuente);
 
+//    this->salirDelGrupo(direccionMulticast);
+    sprintf(dirFuente, "%s", pd.obtieneDireccion());
+
+    printf("\nSe recibió un paquete en el grupo.\n");
+    printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
+    printf("\tContenido: %s.\n", pd.obtieneDatos());
+
+ 
+    // Se abre socket.
+    SocketDatagrama socketUnicast(7000);
+
+    // Se genera paquete y se envía.
+
+    PaqueteDatagrama pdUnicast("Si recibi dato \n", strlen("Si recibi dato \n"), dirFuente, 6000);
+
+  
+    socketUnicast.envia(pdUnicast);
+
+
     return recibidos;
+
 }
 
 int SocketMulticast::envia(PaqueteDatagrama &pd, unsigned char ttl)
@@ -115,8 +137,10 @@ int SocketMulticast::enviaConfiable(PaqueteDatagrama &pd, unsigned char ttl, int
     PaqueteDatagrama request(MAX_LONGITUD_DATOS);
 
     for (int i = 0; i < num_receptores; ++i)
-    {
-        socketUnicast.recibeTimeout(request, 2, 0);
+    {   
+        if(socketUnicast.recibeTimeout(request, 2, 0) < 0){
+            return -1;
+        }
         printf("Si recibi respuesta de: %s\n", request.obtieneDireccion());
     }
 

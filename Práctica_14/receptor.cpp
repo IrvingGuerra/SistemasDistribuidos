@@ -25,12 +25,13 @@ int main(int argc, char const *argv[])
 
     // Se prepara un paquete para recibir y se imprime origen.
     PaqueteDatagrama pd(MAX_LONGITUD_DATOS);
-    if (socket.recibe(pd) < 0) {
+
+    if (socket.recibeConfiable(pd) < 0) {
         printf("Error al recibir paquete\n");
         exit(1);
     }
-
-    char dirFuente[16];
+    sleep(1);
+/*    char dirFuente[16];
     sprintf(dirFuente, "%s", pd.obtieneDireccion());
 
     printf("\nSe recibió un paquete en el grupo.\n");
@@ -53,7 +54,8 @@ int main(int argc, char const *argv[])
     socketUnicast.envia(pdUnicast);
     sleep(1);
   
-    
+    */
+
 
     return 0;
 }
