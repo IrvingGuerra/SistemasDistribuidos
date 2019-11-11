@@ -5,7 +5,7 @@ int main(int argc, char const *argv[])
 {   
     if (argc != 5)
     {
-        printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO PARA ENVIAR] [TTL] [CADENA A ENVIAR]\n",
+        printf("Uso: ./%s [DIRECCIÓN MULTICAST] [PUERTO PARA ENVIAR] [TTL]\n",
                argv[0]);
         exit(EXIT_FAILURE);
     }

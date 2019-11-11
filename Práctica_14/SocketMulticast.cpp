@@ -57,53 +57,29 @@ int SocketMulticast::recibe(PaqueteDatagrama &pd)
 
 int SocketMulticast::recibeConfiable(PaqueteDatagrama &pd)
 {
-    // Recibe datos.
+    // Recibe el paquete.
+    int recibidos = recibe(pd);
 
-    char dirFuente[16];
-    sockaddr_in direccionForanea;
-    int longitudForanea = sizeof(direccionForanea);
-    int recibidos = recvfrom(socketId,
-                             pd.obtieneDatos(),
-                             pd.obtieneLongitud(),
-                             0,
-                             (struct sockaddr *)&direccionForanea,
-                             (socklen_t *)&longitudForanea);
+    // Se extrae id.
+    mensaje m = *(mensaje *)pd.obtieneDatos();
 
-    // Guarda direccción fuente.
-    uint32_t direccionFuente = ntohl(direccionForanea.sin_addr.s_addr);
-    char direccionFuenteCadena[16];
-    sprintf(direccionFuenteCadena, "%u.%u.%u.%u",
-            direccionFuente >> 24 & 0xff,
-            direccionFuente >> 16 & 0xff,
-            direccionFuente >> 8 & 0xff,
-            direccionFuente & 0xff);
-    pd.inicializaIp(direccionFuenteCadena);
+    if (obtenerUltimoId() != m.id)
+    {
+        // Se abre socket.
+        SocketDatagrama socketUnicast(0);
 
-    // Guarda puerto fuente.
-    in_port_t puertoFuente = ntohs(direccionForanea.sin_port);
-    pd.inicializaPuerto(puertoFuente);
+        // Se genera paquete y se envía.
+        PaqueteDatagrama pdUnicast(nullptr, 0, pd.obtieneDireccion(), pd.obtienePuerto());
+        socketUnicast.envia(pdUnicast);
 
-//    this->salirDelGrupo(direccionMulticast);
-    sprintf(dirFuente, "%s", pd.obtieneDireccion());
+        // Cierra socket.
+        socketUnicast.~SocketDatagrama();
 
-    printf("\nSe recibió un paquete en el grupo.\n");
-    printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
-    printf("\tContenido: %s.\n", pd.obtieneDatos());
-
- 
-    // Se abre socket.
-    SocketDatagrama socketUnicast(7000);
-
-    // Se genera paquete y se envía.
-
-    PaqueteDatagrama pdUnicast("Si recibi dato \n", strlen("Si recibi dato \n"), dirFuente, 6000);
-
-  
-    socketUnicast.envia(pdUnicast);
-
+        // Actualiza último id.
+        fijarUltimoId(m.id);
+    }
 
     return recibidos;
-
 }
 
 int SocketMulticast::envia(PaqueteDatagrama &pd, unsigned char ttl)
@@ -121,30 +97,29 @@ int SocketMulticast::envia(PaqueteDatagrama &pd, unsigned char ttl)
     return sendto(socketId, pd.obtieneDatos(), pd.obtieneLongitud(), 0, (sockaddr *)&direccionGrupo, sizeof(direccionGrupo));
 }
 
-int SocketMulticast::enviaConfiable(PaqueteDatagrama &pd, unsigned char ttl, int num_receptores)
+int SocketMulticast::enviaConfiable(PaqueteDatagrama &pd, unsigned char ttl, int totalReceptores)
 {
-    unsigned char TTL = ttl;
-    setsockopt(socketId, IPPROTO_IP, IP_MULTICAST_TTL, (void *)&TTL, sizeof(TTL));
-    sockaddr_in direccionGrupo;
-    int len = sizeof(direccionGrupo);
-    bzero(&direccionGrupo, len);
-    direccionGrupo.sin_family = AF_INET;
-    direccionGrupo.sin_addr.s_addr = inet_addr(pd.obtieneDireccion());
-    direccionGrupo.sin_port = htons(pd.obtienePuerto());
-    int enviados = sendto(socketId, pd.obtieneDatos(), pd.obtieneLongitud(), 0, (sockaddr *)&direccionGrupo, sizeof(direccionGrupo));
+    int enviados = envia(pd, ttl);
 
     SocketDatagrama socketUnicast(6000);
     PaqueteDatagrama request(MAX_LONGITUD_DATOS);
 
-    for (int i = 0; i < num_receptores; ++i)
-    {   
-        if(socketUnicast.recibeTimeout(request, 2, 0) < 0){
-            return -1;
+    int receptoresRestantes = totalReceptores;
+    int intentos = INTENTOS;
+
+    while (intentos > 0 || receptoresRestantes > 0)
+    {
+        for (int i = 0; i < receptoresRestantes; ++i)
+        {
+            if (socketUnicast.recibeTimeout(request, 2, 0) >= 0)
+            {
+                receptoresRestantes--;
+            }
         }
-        printf("Si recibi respuesta de: %s\n", request.obtieneDireccion());
+        intentos--;
     }
 
-    return enviados;
+    return receptoresRestantes == 0 ? enviados : -1;
 }
 
 void SocketMulticast::unirAlGrupo(const char *direccionMulticast)
@@ -161,4 +136,14 @@ void SocketMulticast::salirDelGrupo(const char *direccionMulticast)
     multicast.imr_multiaddr.s_addr = inet_addr(direccionMulticast);
     multicast.imr_interface.s_addr = INADDR_ANY;
     setsockopt(socketId, IPPROTO_IP, IP_DROP_MEMBERSHIP, (void *)&multicast, sizeof(multicast));
+}
+
+void SocketMulticast::fijarUltimoId(unsigned int id)
+{
+    ultimoId = id;
+}
+
+unsigned int SocketMulticast::obtenerUltimoId()
+{
+    return ultimoId;
 }
