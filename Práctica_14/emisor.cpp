@@ -12,7 +12,7 @@ int main(int argc, char const *argv[])
     }
 
     // Se planta semilla para números aleatorios.
-    srand(getpid());
+    //srand(getpid());
 
 
     // Extracción de parámetros.
