@@ -2,6 +2,7 @@
 
 SocketMulticast::SocketMulticast(int puerto)
 {
+    ultimoId = -1;
     socketId = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
     int reuse = 1;
@@ -55,8 +56,19 @@ int SocketMulticast::recibe(PaqueteDatagrama &pd)
     return recibidos;
 }
 
+/**
+ * Recibe un paquete de datagrama por multicast.
+ * 
+ * Retorna el número de bytes recibidos o -1 en caso de error.
+ * 
+ * El contenido del paquete debe ser una estructura tipo mensaje.
+ * Si el mensaje recibido ya ha sido recibido, retorna -2.
+ */
 int SocketMulticast::recibeConfiable(PaqueteDatagrama &pd)
 {
+    // Se abre socket unicast para enviar respuesta.
+    SocketDatagrama socketUnicast(0);
+
     // Recibe el paquete.
     int recibidos = recibe(pd);
 
@@ -65,11 +77,9 @@ int SocketMulticast::recibeConfiable(PaqueteDatagrama &pd)
 
     if (obtenerUltimoId() != m.id)
     {
-        // Se abre socket.
-        SocketDatagrama socketUnicast(0);
-
+        mensaje reply = {REPLY, m.id};
+        PaqueteDatagrama pdUnicast((char *)&reply, sizeof(reply), pd.obtieneDireccion(), UNICAST_PORT);
         // Se genera paquete y se envía.
-        PaqueteDatagrama pdUnicast(nullptr, 0, pd.obtieneDireccion(), pd.obtienePuerto());
         socketUnicast.envia(pdUnicast);
 
         // Cierra socket.
@@ -77,6 +87,10 @@ int SocketMulticast::recibeConfiable(PaqueteDatagrama &pd)
 
         // Actualiza último id.
         fijarUltimoId(m.id);
+    }
+    else
+    {
+        return -2;
     }
 
     return recibidos;
@@ -97,28 +111,38 @@ int SocketMulticast::envia(PaqueteDatagrama &pd, unsigned char ttl)
     return sendto(socketId, pd.obtieneDatos(), pd.obtieneLongitud(), 0, (sockaddr *)&direccionGrupo, sizeof(direccionGrupo));
 }
 
+/**
+ * Envía un paquete de datagrama mediante socket multicast a una determinada cantidad de receptores.
+ * Se requiere de un valor TTL para indicar qué tanto se propaga el mensaje.
+ * 
+ * Retorna la cantidad de bytes enviados o -1 en caso de error.
+ */
 int SocketMulticast::enviaConfiable(PaqueteDatagrama &pd, unsigned char ttl, int totalReceptores)
 {
-    int enviados = envia(pd, ttl);
+    SocketDatagrama socketUnicast(UNICAST_PORT);
 
-    SocketDatagrama socketUnicast(6000);
     PaqueteDatagrama request(MAX_LONGITUD_DATOS);
 
     int receptoresRestantes = totalReceptores;
+    int receptoresActivos = 0;
     int intentos = INTENTOS;
+    int enviados;
 
-    while (intentos > 0 || receptoresRestantes > 0)
+    while (intentos > 0 && receptoresRestantes > 0)
     {
         for (int i = 0; i < receptoresRestantes; ++i)
         {
+            enviados = envia(pd, ttl);
             if (socketUnicast.recibeTimeout(request, 2, 0) >= 0)
             {
-                receptoresRestantes--;
+                receptoresActivos++;
             }
         }
+        receptoresRestantes -= receptoresActivos;
+        receptoresActivos = 0;
         intentos--;
     }
-
+    
     return receptoresRestantes == 0 ? enviados : -1;
 }
 

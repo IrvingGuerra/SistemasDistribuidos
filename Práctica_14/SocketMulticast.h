@@ -13,6 +13,7 @@
 
 
 #define INTENTOS 3
+#define UNICAST_PORT 7000
 
 class SocketMulticast
 {

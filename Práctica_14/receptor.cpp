@@ -10,69 +10,44 @@ int main(int argc, char const *argv[])
     }
 
     // Extracción de parámetros.
-   char dirFuente[16];
-    int nbd = 0, numDepositos;
     char direccionMulticast[16];
     sprintf(direccionMulticast, "%s", argv[1]);
-
     int puertoRecepcion = atoi(argv[2]);
 
     // Se crea socket y se une a grupo.
     SocketMulticast socket(puertoRecepcion);
     socket.unirAlGrupo(direccionMulticast);
 
-    // Se prepara un paquete para recibir y se imprime origen.
+    // Base de datos.
+    int dinero = 0;
+
+    // Se prepara un paquete para recibir depósitos.
     PaqueteDatagrama pd(MAX_LONGITUD_DATOS);
 
-    if (socket.recibeConfiable(pd) < 0)
+    // Ciclo de recepción para depósitos.
+    while (true)
     {
-        printf("Error al recibir paquete\n");
-        exit(1);
-    }
+        // Se recibe el paquete.
+        int resultado = socket.recibeConfiable(pd);
 
-    numDepositos = *(int*)pd.obtieneDatos();
-  for(int i = 0; i < numDepositos; i++){  
-       if (socket.recibeConfiable(pd) < 0) {
-            printf("Error al recibir paquete\n");
+        // Se valida estado de recepción.
+        if (resultado == -1)
+        {
+            printf("Error al recibir paquete.\n");
             exit(1);
         }
-        sprintf(dirFuente, "%s", pd.obtieneDireccion());
-
-         printf("\nSe recibió un paquete en el grupo.\n");
-        printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
-        printf("\tContenido: %d.\n", *(int*)pd.obtieneDatos());
-
-        nbd += (*(int*)pd.obtieneDatos());
-
-        printf("valor de nbd: %d\n", nbd);
-        
-        sleep(1);
+        else if (resultado == -2)
+        {
+            printf("Mensaje recibido de nuevo.\n");
+        }
+        else // Se actualiza el dinero.
+        {
+            mensaje m = *(mensaje *)pd.obtieneDatos();
+            int valorDeposito = *(int *)m.args;
+            dinero += valorDeposito;
+            printf("Depósito de %d. Dinero: %d\n", valorDeposito, dinero);
+        }
     }
-/*    char dirFuente[16];
-    sprintf(dirFuente, "%s", pd.obtieneDireccion());
-
-    printf("\nSe recibió un paquete en el grupo.\n");
-    printf("\tOrigen: %s:%d\n", dirFuente, pd.obtienePuerto());
-    printf("\tContenido: %s.\n", pd.obtieneDatos());
-
-
-
-    socket.salirDelGrupo(direccionMulticast);
-
- 
-    // Se abre socket.
-    SocketDatagrama socketUnicast(7000);
-
-    // Se genera paquete y se envía.
-
-    PaqueteDatagrama pdUnicast("Si recibi dato \n", strlen("Si recibi dato \n"), dirFuente, 6000);
-
-  
-    socketUnicast.envia(pdUnicast);
-    sleep(1);
-  
-    */
-
 
     return 0;
 }
