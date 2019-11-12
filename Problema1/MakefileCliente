@@ -1,0 +1,30 @@
+PROJECT = httpServerUdpClient
+CFLAGS = -Wall -std=c++11
+LDFLAGS = -lm -lpthread
+CC = g++ -g3
+EXCLUDED_FILES = udpServer.cpp Respuesta.cpp
+OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
+
+FIRST_IP_ADDRESS = 192.168.0.2
+COMPUTERS = 2
+QUALITY = 2
+TIME = 2000
+
+ARGS = $(FIRST_IP_ADDRESS) $(COMPUTERS) $(QUALITY) $(TIME)
+
+all: $(PROJECT)
+
+%.o: %.cpp
+	$(CC) -c $< $(CFLAGS)
+
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(OBJECTS) $(PROJECT)
+
+run:
+	./$(PROJECT) $(ARGS)
+

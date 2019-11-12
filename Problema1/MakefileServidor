@@ -1,0 +1,25 @@
+PROJECT = udpServer
+CFLAGS = -Wall -std=c++11
+LDFLAGS = -lm -lpthread
+CC = g++ -g3
+EXCLUDED_FILES = Solicitud.cpp udpClientThread.cpp httpServerThread.cpp httpServerUdpClient.cpp mongoose.cpp
+OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES), $(wildcard *.cpp)))
+
+LISTENING_PORT = 5000
+ARGS = $(LISTENING_PORT)
+
+all: $(PROJECT)
+
+%.o: %.cpp
+	$(CC) -c $< $(CFLAGS)
+
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(OBJECTS) $(PROJECT) *.png
+
+run:
+	./$(PROJECT) $(ARGS)
