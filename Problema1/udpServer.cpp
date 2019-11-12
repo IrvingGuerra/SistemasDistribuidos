@@ -5,7 +5,7 @@
 int main(int argc, char const *argv[])
 {
     Respuesta respuesta(5000);
-    std::string fileName = "../extra/reg.txt";
+    std::string fileName = "./extra/reg.txt";
     // Preparamos respuesta.
     void *resultado = nullptr;
     int resultadoLen;
