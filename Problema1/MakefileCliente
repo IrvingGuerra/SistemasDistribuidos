@@ -5,7 +5,7 @@ CC = g++ -g3
 EXCLUDED_FILES = udpServer.cpp Respuesta.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
 
-FILE = "./extra/reg.txt"
+FILE = "./extra/registro.data"
 IP_ADDRESS = 10.211.129.1
 PORT = 5000
 

@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 	{
 		lista.push_back(i);
 	}
-
+	int fd = open("registro.data", O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	for (j = 0; j < n; j++)
 	{
 		//Obtiene un elemento aleatorio de la lista de telefonos y lo elimina de la lista para evitar la repeticion
@@ -74,8 +74,14 @@ int main(int argc, char *argv[])
 
 		i = rand() % 9;
 		strcpy(reg1.partido, partidos[i]);
-
-		write(1, &reg1, sizeof(reg1));
+		
+		if (fd == -1)
+		{
+			perror("Error al crear el archivo de registro.");
+			exit(EXIT_FAILURE);
+		}
+		write(fd, &reg1, sizeof(reg1));
 		printf("\n");
 	}
+	close(fd);
 }
