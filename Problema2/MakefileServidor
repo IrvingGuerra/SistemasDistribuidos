@@ -2,7 +2,7 @@ PROJECT = udpServer
 CFLAGS = -Wall -std=c++11
 LDFLAGS = -lm -lpthread
 CC = g++ -g3
-EXCLUDED_FILES = Solicitud.cpp udpClient.cpp
+EXCLUDED_FILES = Solicitud.cpp udpClient.cpp gen_registros_cel_clave_ver3.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES), $(wildcard *.cpp)))
 
 LISTENING_PORT = 5000

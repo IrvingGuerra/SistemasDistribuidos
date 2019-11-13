@@ -2,14 +2,15 @@ PROJECT = httpServerUdpClient
 CFLAGS = -Wall -std=c++11
 LDFLAGS = -lm -lpthread
 CC = g++ -g3
-EXCLUDED_FILES = udpServer.cpp Respuesta.cpp
+EXCLUDED_FILES = udpServer.cpp Respuesta.cpp gen_registros_cel_clave_ver3.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
 
-FILE = "./extra/registro.data"
-IP_ADDRESS = 10.211.129.1
-PORT = 5000
+FILE = ./files/registros.data
+REGISTERS = 100
+IP_ADDRESS = 10.100.75.128
+#IP_ADDRESS = 10.211.129.1
 
-ARGS = $(FILE) $(IP_ADDRESS) $(PORT)
+ARGS = $(FILE) $(REGISTERS) $(IP_ADDRESS)
 
 all: $(PROJECT)
 

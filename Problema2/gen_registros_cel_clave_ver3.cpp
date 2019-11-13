@@ -9,14 +9,9 @@
 #include <list>
 #include <iterator>
 
-using namespace std;
+#include "registro.h"
 
-struct registro
-{
-	char celular[11];
-	char CURP[19];
-	char partido[4];
-};
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -48,7 +43,7 @@ int main(int argc, char *argv[])
 	{
 		lista.push_back(i);
 	}
-	int fd = open("registro.data", O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
+	int fd = open("./files/registros.data", O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	for (j = 0; j < n; j++)
 	{
 		//Obtiene un elemento aleatorio de la lista de telefonos y lo elimina de la lista para evitar la repeticion

@@ -5,7 +5,8 @@
 #define MAX_DATA_SIZE 16000 //16360
 
 // Tipos de operaciones.
-#define SAVE_REGISTER 1
+#define SEND_REGS_QUANTITY 1
+#define SAVE_REGISTER 2
 
 // Tipos de mensaje.
 #define REQUEST 0
