@@ -5,9 +5,7 @@
 #define MAX_DATA_SIZE 16000 //16360
 
 // Tipos de operaciones.
-#define DO_SCREENSHOT 1
-#define GET_IMAGE_LENGTH 2
-#define GET_IMAGE_CHUNK 3
+#define SAVE_REGISTER 1
 
 // Tipos de mensaje.
 #define REQUEST 0
