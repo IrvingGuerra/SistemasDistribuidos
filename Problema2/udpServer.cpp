@@ -45,7 +45,7 @@ int main(int argc, char const *argv[])
         }
 
         registro *reg = (registro *)receiver->args;
-        printf("Registro recibido: %s\n", registroToString(reg));
+      //  printf("Registro recibido: %s\n", registroToString(reg));
         write(fd, receiver->args, sizeof(registro));
 
         char reply[20];
