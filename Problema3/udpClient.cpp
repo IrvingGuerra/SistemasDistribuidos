@@ -50,8 +50,8 @@ int main(int argc, char const *argv[])
 		//printf("Se enviará cadena: %s\n", regString);
 
 		// Se envía la cadena registro.
-		char *confirm = request.doOperation(argv[3], SERVER_PORT, SAVE_REGISTER, (char *)&reg, sizeof(reg));
-		//printf("%s\n", confirm);
+		timeval *timestamp = (timeval *)request.doOperation(argv[3], SERVER_PORT, SAVE_REGISTER, (char *)&reg, sizeof(reg));
+		printf("Timestamp: %ld:%ld\n", timestamp->tv_sec, timestamp->tv_usec);
 	}
 
 	close(fd);
