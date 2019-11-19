@@ -17,9 +17,13 @@ int main(int argc, char const *argv[])
     Respuesta response(SERVER_PORT);
     mensaje *receiver;
 
+    unsigned int prevReqID;
+    long prevPhone;
+
     std::set<long> numeros;
 
     receiver = response.getRequest();
+    prevReqID = receiver->requestID;
     if (receiver->operationID != SEND_REGS_QUANTITY)
     {
         char err[6] = "ERROR";
@@ -41,6 +45,7 @@ int main(int argc, char const *argv[])
     for (register int i = 0; i < n; i++)
     {
         receiver = response.getRequest();
+
         if (receiver->operationID != SAVE_REGISTER)
         {
             perror("Se esperaba un registro para guardar.");
@@ -51,14 +56,14 @@ int main(int argc, char const *argv[])
         registro *reg = (registro *)receiver->args;
         std::set<long>::iterator num = numeros.find(atol(reg->celular));
         timeval timestamp;
-        if (num != numeros.end())
+        if (num != numeros.end() && prevReqID != receiver->requestID)
         {
-            printf("Número ya existente.\n");
+            printf("Número ya existente: %l.\n", *num);
             timestamp.tv_sec = 0;
             timestamp.tv_usec = 0;
         }
         else
-        {    
+        {
             printf("Registro nuevo recibido: %s\n", registroToString(reg));
             write(fd, reg, sizeof(registro));
             fsync(fd);
