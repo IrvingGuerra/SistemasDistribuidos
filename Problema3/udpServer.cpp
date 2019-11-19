@@ -18,7 +18,6 @@ int main(int argc, char const *argv[])
     mensaje *receiver;
 
     unsigned int prevReqID;
-    long prevPhone;
 
     std::set<long> numeros;
 
@@ -58,19 +57,20 @@ int main(int argc, char const *argv[])
         timeval timestamp;
         if (num != numeros.end() && prevReqID != receiver->requestID)
         {
-            printf("Número ya existente: %l.\n", *num);
+            printf("Número ya existente: %ld.\n", *num);
             timestamp.tv_sec = 0;
             timestamp.tv_usec = 0;
         }
         else
         {
-            printf("Registro nuevo recibido: %s\n", registroToString(reg));
+            //printf("Registro nuevo recibido: %s\n", registroToString(reg));
             write(fd, reg, sizeof(registro));
             fsync(fd);
             gettimeofday(&timestamp, NULL);
             numeros.insert(atol(reg->celular));
         }
-        printf("Enviando timestamp.\n");
+        //printf("Enviando timestamp.\n");
+        prevReqID = receiver->requestID;
         response.sendReply((char *)&timestamp, sizeof(timeval));
     }
 
