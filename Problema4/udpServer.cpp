@@ -4,7 +4,10 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 #include <set>
+#include <vector>
+#include <algorithm>
 
 #include "Respuesta.h"
 #include "registro.h"
@@ -19,7 +22,8 @@ int main(int argc, char const *argv[])
 
     unsigned int prevReqID;
 
-    std::set<long> numeros;
+    // std::set<long> numeros; // sss
+    std::vector<long> numeros; // vvv
 
     receiver = response.getRequest();
     prevReqID = receiver->requestID;
@@ -41,6 +45,7 @@ int main(int argc, char const *argv[])
     }
 
     int n = *(int *)receiver->args;
+    numeros.reserve(n); // vvv
     for (register int i = 0; i < n; i++)
     {
         receiver = response.getRequest();
@@ -53,22 +58,34 @@ int main(int argc, char const *argv[])
         }
 
         registro *reg = (registro *)receiver->args;
-        std::set<long>::iterator num = numeros.find(atol(reg->celular)); // Con validación.
-        // std::set<long>::iterator num = numeros.end(); // Sin validación.
         timeval timestamp;
-        if (num != numeros.end() && prevReqID != receiver->requestID)
+
+        // Validación Set
+        //std::set<long>::iterator num = numeros.find(atol(reg->celular)); // sss
+
+        // Validación Vector
+        bool found = std::binary_search(numeros.begin(), numeros.end(), atol(reg->celular)); // vvv
+
+        // if (num != numeros.end() && prevReqID != receiver->requestID) // sss
+        if (found && prevReqID != receiver->requestID) // vvv
         {
-            printf("Número ya existente: %ld.\n", *num);
+            printf("Número ya existente\n");
             timestamp.tv_sec = 0;
             timestamp.tv_usec = 0;
         }
         else
         {
-            //printf("Registro nuevo recibido: %s\n", registroToString(reg));
+            // printf("Registro nuevo recibido: %s\n", registroToString(reg));
             write(fd, reg, sizeof(registro));
             fsync(fd);
             gettimeofday(&timestamp, NULL);
-            numeros.insert(atol(reg->celular));
+            // Set
+            // numeros.insert(atol(reg->celular)); // sss
+
+            // Vector
+            long phone = atol(reg->celular); // vvv
+            std::vector<long>::iterator pos = std::lower_bound(numeros.begin(), numeros.end(), phone); // vvv
+            numeros.insert(pos, phone); // vvv
         }
         //printf("Enviando timestamp.\n");
         prevReqID = receiver->requestID;
