@@ -45,13 +45,12 @@ int main(int argc, char const *argv[])
 		}
 
 		// Se da tratamiento al registro para que sea cadena imprimible.
-		char *regString = registroToString(&reg);
-
-		//printf("Se enviará cadena: %s\n", regString);
+		// char *regString = registroToString(&reg);
+		// printf("Se enviará cadena: %s\n", regString);
 
 		// Se envía la cadena registro.
 		timeval *timestamp = (timeval *)request.doOperation(argv[3], SERVER_PORT, SAVE_REGISTER, (char *)&reg, sizeof(reg));
-		printf("Timestamp %d: %ld:%ld\n", i, timestamp->tv_sec, timestamp->tv_usec);
+		// printf("Timestamp %d: %ld:%ld\n", i, timestamp->tv_sec, timestamp->tv_usec);
 	}
 
 	close(fd);
