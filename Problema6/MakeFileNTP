@@ -1,0 +1,23 @@
+PROJECT = ntpClient
+CFLAGS = -Wall -std=c++11
+LDFLAGS = -lm -lpthread
+CC = g++
+EXCLUDED_FILES = udpServer.cpp
+OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
+
+all: $(PROJECT)
+
+%.o: %.cpp
+	$(CC) -c $< $(CFLAGS)
+
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(OBJECTS) $(PROJECT)
+
+run:
+	./$(PROJECT)
+
