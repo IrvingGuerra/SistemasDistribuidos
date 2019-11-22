@@ -48,7 +48,7 @@ void *clientThread(void *args)
             // Se envía la cadena registro.
             timeval *timestamp = (timeval *)request.doOperation(ctargs->ipAdd, ctargs->port, SAVE_REGISTER, (char *)&reg, sizeof(reg));
             tm *_tm = localtime(&timestamp->tv_sec);
-            printf("Tiempo recibido: %02d:%02d:%02d.%06ld",_tm->tm_hour, _tm->tm_min, _tm->tm_sec, (timestamp->tv_usec/1000);
+            printf("Tiempo recibido: %02d:%02d:%02d.%06ld",_tm->tm_hour, _tm->tm_min, _tm->tm_sec, (timestamp->tv_usec/1000));
         }
     }
 
