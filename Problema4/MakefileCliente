@@ -1,4 +1,4 @@
-PROJECT = httpServerUdpClient
+PROJECT = client.out
 CFLAGS = -Wall -std=c++11
 LDFLAGS = -lm -lpthread
 CC = g++ -g3

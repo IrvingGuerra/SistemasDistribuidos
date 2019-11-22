@@ -1,4 +1,4 @@
-PROJECT = udpServer
+PROJECT = server.out
 CFLAGS = -Wall -std=c++11
 LDFLAGS = -lm -lpthread
 CC = g++ -g3
