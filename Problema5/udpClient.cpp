@@ -13,7 +13,7 @@
 
 int main(int argc, char const *argv[])
 {
-	if (argc != 4)
+	if (argc != 5)
 	{
 		printf("Uso: ./%s <archivo con registros> <dir. IP serv. 1> <dir. IP serv. 2> <dir. IP serv. 3> \n", argv[0]);
 		exit(0);

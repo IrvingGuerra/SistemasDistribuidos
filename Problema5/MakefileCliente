@@ -6,11 +6,11 @@ EXCLUDED_FILES = udpServer.cpp Respuesta.cpp generator.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
 
 FILE = ./files/registros.data
-REGISTERS = 100000
-IP_ADDRESS = 127.0.0.1
-#IP_ADDRESS = 10.211.129.1
+IP_ADDRESS_1 = 192.168.0.4
+IP_ADDRESS_2 = 192.168.0.6
+IP_ADDRESS_3 = 192.168.0.5
 
-ARGS = $(FILE) $(REGISTERS) $(IP_ADDRESS)
+ARGS = $(FILE) $(REGISTERS) $(IP_ADDRESS_1) $(IP_ADDRESS_2) $(IP_ADDRESS_3)
 
 all: $(PROJECT)
 
