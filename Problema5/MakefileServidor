@@ -2,7 +2,7 @@ PROJECT = server.out
 CFLAGS = -Wall -std=c++11
 LDFLAGS = -lm -lpthread
 CC = g++ -g3
-EXCLUDED_FILES = Solicitud.cpp udpClient.cpp generator.cpp
+EXCLUDED_FILES = Solicitud.cpp udpClient.cpp generator.cpp ClientThread.cpp
 OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES), $(wildcard *.cpp)))
 
 LISTENING_PORT = 5000

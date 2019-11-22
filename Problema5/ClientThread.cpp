@@ -22,7 +22,7 @@ void *clientThread(void *args)
     unsigned int fileSize = data.st_size;
 
     Solicitud request;
-    for (register int nextReg = 0; nextReg < fileSize; nextReg += 34)
+    for (register unsigned int nextReg = 0; nextReg < fileSize; nextReg += 34)
     {
         registro reg;
         int bytesRead = pread(fd, (void *)&reg, 34, nextReg);
