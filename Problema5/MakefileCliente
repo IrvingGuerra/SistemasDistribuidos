@@ -1,0 +1,30 @@
+PROJECT = client.out
+CFLAGS = -Wall -std=c++11
+LDFLAGS = -lm -lpthread
+CC = g++ -g3
+EXCLUDED_FILES = udpServer.cpp Respuesta.cpp generator.cpp
+OBJECTS = $(patsubst %.cpp, %.o, $(filter-out $(EXCLUDED_FILES),$(wildcard *.cpp)))
+
+FILE = ./files/registros.data
+REGISTERS = 100000
+IP_ADDRESS = 127.0.0.1
+#IP_ADDRESS = 10.211.129.1
+
+ARGS = $(FILE) $(REGISTERS) $(IP_ADDRESS)
+
+all: $(PROJECT)
+
+%.o: %.cpp
+	$(CC) -c $< $(CFLAGS)
+
+$(PROJECT): $(OBJECTS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(OBJECTS) $(PROJECT)
+
+run:
+	./$(PROJECT) $(ARGS)
+
